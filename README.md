@@ -43,4 +43,5 @@ A universally accessible meal planning app that provides health tracking feature
 ## Resources
 * **Gantt Chart**: https://docs.google.com/spreadsheets/d/1JSRfmFFWOuKTFONE-57_U8PlNO42pcd1cF6T-tghUpY/edit?usp=sharing
 * **Project Notes**: https://docs.google.com/document/d/1kWJR1gWPv0GhG0Qdv3ZcObZTP-xUnnSt11EfEVZhV10/edit?usp=sharing
+* **Live Gantt Chart**: https://docs.google.com/spreadsheets/d/e/2PACX-1vRQTglkHOwBbpffgFTJqy4ktbO41tGlPWPhiwgCMncCU6pzVclpANe_vaLTZVheE5Hg-WO50juSprWJ/pubhtml
 
