@@ -1,4 +1,3 @@
-competitor-analysis
 ## Competitor Analysis
 
 ### Web-Based Fitness and Nutrition Platforms
