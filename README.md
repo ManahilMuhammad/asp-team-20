@@ -37,7 +37,7 @@ dietary needs and preferences to achieve fitness and nutrition goals logically.<
 
 ## Project Objectives
 ### Development Concept
-1. The application is going to be developed using the MEAN (MongoDB(PostgreSQL), Angular, and Node.js) stack for 
+1. The application is going to be developed using the MEAN (MongoDB(PostgreSQL), Express.js, Angular, and Node.js) stack for 
 scalability.
 2. Core features like fitness tracking, calorie monitoring, recipe recommendations and progress visualisation will be 
 implemented.
