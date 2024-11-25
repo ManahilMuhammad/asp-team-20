@@ -2,7 +2,7 @@
 name: 🧪 Test Case Request
 about: Suggest a new test case or improvement to existing tests
 title: "[Test Case]: "
-labels: [test-case]
+labels: [ci/cd]
 assignees: ''
 ---
 
