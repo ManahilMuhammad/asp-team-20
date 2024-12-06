@@ -12,9 +12,10 @@
 A universally accessible meal planning app that provides health tracking features.
 
 ## App Features
-1. Calorie counting
-2. Meal planning
-3. Recipe recommendation
+1. Fitness tracking
+2. Calorie counting
+3. Meal planning
+4. Recipe recommendation
 
 ## Important Dates
 - [ ] **Midterm Submission deadline** - January 6th, 2025
@@ -32,8 +33,8 @@ A universally accessible meal planning app that provides health tracking feature
 ### Project Aim
 <p>The aim of the NutriFit app project is to design and develop a user-centric, web-based application.The application 
 will integrate fitness tracking with personalised recipe recommendations thereby empowering users to lead healthier
-lifestyles.The application will have fitness and recipe monitoring tools for fitness progress, meal planning based on 
-dietary needs and preferences to achieve fitness and nutrition goals logically.</p>
+lifestyles.The application will have fitness and recipe monitoring tools, meal planning based on 
+dietary needs and preferences to achieve overall health goals logically.</p>
 
 ## Project Objectives
 ### 1.  Development Concept
