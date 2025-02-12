@@ -2,7 +2,7 @@ const db = require("../models");
 const bcrypt = require("bcryptjs");
 const generateToken = require("../utils/generateToken");
 
-exports.registerUser = async (req, res) => {
+module.exports.registerUser = async (req, res) => {
   const { name, email, password } = req.body;
 
   try {
@@ -18,7 +18,7 @@ exports.registerUser = async (req, res) => {
   }
 };
 
-exports.loginUser = async (req, res) => {
+module.exports.loginUser = async (req, res) => {
   const { email, password } = req.body;
 
   try {
@@ -34,7 +34,7 @@ exports.loginUser = async (req, res) => {
   }
 };
 
-exports.getUsers = async (req, res) => {
+module.exports.getUsers = async (req, res) => {
   try {
     const users = await db.User.findAll();
 
