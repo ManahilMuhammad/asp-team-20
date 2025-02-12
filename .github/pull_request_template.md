@@ -1,11 +1,3 @@
----
-name: 🚀 Pull Request
-about: Submit a pull request with changes or improvements
-title: "[PR]: "
-labels: []
-assignees: ''
----
-
 ### 📄 **Pull Request Description**
 <!-- Provide a brief summary of your pull request. What does it achieve or modify? -->
 
