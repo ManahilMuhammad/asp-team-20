@@ -34,3 +34,6 @@ jspm_packages/
 *.zip
 *.bak
 *.backup
+
+# Ignore JetBrains IDEs settings
+.idea/
