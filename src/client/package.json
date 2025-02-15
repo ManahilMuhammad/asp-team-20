@@ -1,5 +1,7 @@
 {
-  "name": "client",
+  "name": "nutrifit-frontend",
+  "author": "UCL - ASP Team 20 - Oct24 Session",
+  "description": "",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -9,6 +11,15 @@
     "test": "ng test"
   },
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ManahilMuhammad/asp-team-20.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ManahilMuhammad/asp-team-20/issues"
+  },
+  "homepage": "https://github.com/ManahilMuhammad/asp-team-20#readme",
   "dependencies": {
     "@angular/animations": "^19.1.0",
     "@angular/common": "^19.1.0",
