@@ -2,7 +2,10 @@ const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const db = require("./models");
+// Import the routes for recipes
 const recipeRoutes = require("./routes/recipeRoutes");
+// Import routes for fitness metrics.
+const fitnessMetricRoutes = require("./routes/fitnessMetricRoutes");
 
 dotenv.config();
 const app = express();
@@ -18,6 +21,8 @@ app.use("/api/users", require("./routes/user.routes"));
 
 // Recipe routes
 app.use("/api/recipes", recipeRoutes);
+// Fitness Metric API routes.
+app.use("/api/fitness-metrics", fitnessMetricRoutes);
 
 // Sync Database
 db.sequelize
