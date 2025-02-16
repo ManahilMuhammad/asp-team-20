@@ -7,7 +7,7 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { useTheme } from "@/hooks/useTheme"
+import { useTheme } from "@/hooks/use-theme"
 
 const ModeToggle: React.FC = () => {
     const { setTheme } = useTheme()
