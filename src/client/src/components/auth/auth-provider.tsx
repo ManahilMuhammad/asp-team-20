@@ -23,7 +23,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       }
 
       const { token } = await response.json();
-      localStorage.setItem("token", token);
+      localStorage.setItem("nutrifit-token", token);
 
       const decodedUser = parseJwt(token);
       setUser(decodedUser);
@@ -36,58 +36,71 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const logout = () => {
     setUser(false);
-    localStorage.removeItem("token");
+    localStorage.removeItem("nutrifit-token");
     window.location.href = "/";
   };
 
-  const isTokenValid = async (token: string): Promise<boolean> => {
-    try {
-      const response = await fetch(`/api/auth/verify`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${token}`,
-        },
-      });
+  /* 
+    To Do:
+      - Create a server side endpoint to check if token is valid
+  */
+  // const isTokenValid = async (token: string): Promise<boolean> => {
+  //   try {
+  //     const response = await fetch(`/api/auth/verify`, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         authorization: `Bearer ${token}`,
+  //       },
+  //     });
 
-      console.log('Checking token:', response);
+  //     console.log('Checking token:', response);
 
-      if (response.ok) {
-        return true;
-      }
-      return false;
-    } catch (error) {
-      console.error("Token validation failed:", error);
-      return false;
-    }
-    console.log(token);
-    return true;
-  };
+  //     if (response.ok) {
+  //       return true;
+  //     }
+  //     return false;
+  //   } catch (error) {
+  //     console.error("Token validation failed:", error);
+  //     return false;
+  //   }
+  //   console.log(token);
+  //   return true;
+  // };
 
   const isAuthenticated = () => {
     return user === null ? null : !!user;
   };
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    console.log('token', token);
+    const token = localStorage.getItem("nutrifit-token");
+    console.log('nutrifit-token', token);
     if (token) {
-      const verifyToken = async () => {
-        console.log('verifyToken triggered')
-        try {
-          const isValid = await isTokenValid(token);
-          if (isValid) {
-            const decodedUser = parseJwt(token);
-            setUser(decodedUser);
-          } else {
-            logout();
-          }
-        } catch {
-          logout();
-        }
-      };
 
-      verifyToken();
+      /* 
+        To Do:
+          - Create a server side endpoint to check if token is valid
+      */
+
+      // const verifyToken = async () => {
+      //   console.log('verifyToken triggered')
+      //   try {
+      //     const isValid = await isTokenValid(token);
+      //     if (isValid) {
+      //       const decodedUser = parseJwt(token);
+      //       setUser(decodedUser);
+      //     } else {
+      //       logout();
+      //     }
+      //   } catch {
+      //     logout();
+      //   }
+      // };
+
+      // verifyToken();
+
+      const decodedUser = parseJwt(token);
+      setUser(decodedUser);
     } else {
       setTimeout(() => setUser(false), 500);
     }
