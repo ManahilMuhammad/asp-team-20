@@ -37,3 +37,6 @@ jspm_packages/
 
 # Ignore JetBrains IDEs settings
 .idea/
+
+# Config Files
+src/server/config.json
