@@ -4,12 +4,12 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
-interface LoginFormProps extends React.ComponentProps<"div"> {
+interface FormProps extends React.ComponentProps<"div"> {
     changeForm: () => void;
 }
 
 /* Credit: ShadCN's demo website - https://ui.shadcn.com/blocks#login-04 */
-const LoginForm = ({ changeForm, className, ...props }: LoginFormProps) => {
+const RegisterForm = ({ changeForm, className, ...props }: FormProps) => {
     return (
         <div className={cn("flex flex-col gap-6", className)} {...props}>
             <Card className="overflow-hidden border-transparent md:border-primary">
@@ -79,4 +79,4 @@ const LoginForm = ({ changeForm, className, ...props }: LoginFormProps) => {
     )
 }
 
-export default LoginForm;
+export default RegisterForm;
