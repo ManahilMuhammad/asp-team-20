@@ -27,6 +27,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
       const decodedUser = parseJwt(token);
       setUser(decodedUser);
+      window.location.href = "/profile";
     } catch (error) {
       setUser(false);
       console.error("Login failed:", error);
