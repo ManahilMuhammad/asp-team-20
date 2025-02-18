@@ -8,14 +8,14 @@ interface AuthProviderProps {
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | false | null>(null);
 
-  const login = async (username: string, password: string) => {
+  const login = async (email: string, password: string) => {
     try {
       const response = await fetch(`/api/users/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ email, password }),
       });
 
       if (!response.ok) {
@@ -41,27 +41,25 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   const isTokenValid = async (token: string): Promise<boolean> => {
-    /* 
-        Todo:
-        - Server auth verification
-    */
-    // try {
-    //   const response = await fetch(`/api/auth/verify`, {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       Authorization: `Bearer ${token}`,
-    //     },
-    //   });
+    try {
+      const response = await fetch(`/api/auth/verify`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      });
 
-    //   if (response.ok) {
-    //     return true;
-    //   }
-    //   return false;
-    // } catch (error) {
-    //   console.error("Token validation failed:", error);
-    //   return false;
-    // }
+      console.log('Checking token:', response);
+
+      if (response.ok) {
+        return true;
+      }
+      return false;
+    } catch (error) {
+      console.error("Token validation failed:", error);
+      return false;
+    }
     console.log(token);
     return true;
   };
@@ -72,8 +70,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
+    console.log('token', token);
     if (token) {
       const verifyToken = async () => {
+        console.log('verifyToken triggered')
         try {
           const isValid = await isTokenValid(token);
           if (isValid) {
