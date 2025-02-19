@@ -1,10 +1,9 @@
 const jwt = require("jsonwebtoken");
 const db = require("../models");
-const config = require("../config/config.json");
-const { NODE_ENV } = require("../config/config");
+const { JWT_SECRET } = require("../config/config");
 
 // Determine the environment (default to development)
-const jwtSecret = config[NODE_ENV].jwtSecret;
+const jwtSecret = JWT_SECRET;
 
 const protect = async (req, res, next) => {
   let token = req.headers.authorization;
