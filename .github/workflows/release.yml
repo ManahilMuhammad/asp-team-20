@@ -14,15 +14,40 @@ jobs:
       - name: Install archive tools
         run: sudo apt install zip
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
       - name: Checkout source code
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
           ref: ${{ github.event.repository.default_branch }}
 
+      - name: Update version in package files
+        run: |
+          npm version ${{ github.ref_name }} --no-git-tag-version
+
+      - name: Install dependencies and build
+        run: |
+          npm ci
+          npm --prefix src/client run build
+          npm --prefix src/server run build
+
+      - name: Move external files to build/
+        run: |
+          cp src/server/.env.template src/build
+
       - name: Bundle files
         run: |
-          zip -r ${{ github.event.repository.name }}.zip . -x "./.*" "./node_modules/*" "./**/node_modules/*"
+          zip -r ${{ github.event.repository.name }}.zip ./src/build/
+
+      - name: Update package version to ${{ github.ref_name }}
+        run: |
+          git add src/client/package*.json src/server/package*.json
+          git commit -am 'chore(package): update to ${{ github.ref_name }}'
+          git push
 
       - name: Create Release
         uses: 'marvinpinto/action-automatic-releases@v1.2.1'
