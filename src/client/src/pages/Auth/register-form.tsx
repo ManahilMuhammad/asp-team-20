@@ -50,7 +50,7 @@ const RegisterForm = ({ changeForm, className, ...props }: FormProps) => {
                 // Handle registration error
                 const errorData = await response.json();
                 console.error("Registration failed:", errorData);
-                setError({...formError, global: (errorData as any)?.message || 'Unkown error'}); // eslint-disable-line
+                setError({...formError, global: (errorData as any)?.error || 'Unkown error'}); // eslint-disable-line
             }
         } catch (error) {
             console.error("Error during registration:", error);
