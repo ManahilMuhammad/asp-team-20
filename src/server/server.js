@@ -1,8 +1,3 @@
-/* Check that the project is properly setup before initialising */
-const assert = require('assert');
-const fs = require('fs');
-assert(fs.existsSync('./config/config.json'), "Config file does not exist, refer to the project documentation under the server directory.");
-
 /* Initialise the project dependancies */
 const express = require("express");
 const cors = require("cors");
