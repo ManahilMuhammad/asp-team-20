@@ -20,9 +20,9 @@ else console.warn(`[WARN] NODE_ENV was incorrectly set in the .env file to ${env
 // Validate server port
 let PORT = 3000;
 if (
-    typeof env.PORT === 'number'
-) PORT = env.PORT;
-else console.warn(`[WARN] PORT was incorrectly set in the .env file to ${env.NODE_ENV}, defaulting to 3000`)
+    typeof env.PORT === 'number' || (Number(env.PORT) !== NaN && Number(env.PORT) > 0)
+) PORT = Number(env.PORT);
+else console.warn(`[WARN] PORT was incorrectly set in the .env file to ${Number(env.PORT)}, defaulting to 3000`);
 
 module.exports = {
     NODE_ENV,
