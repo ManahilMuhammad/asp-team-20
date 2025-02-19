@@ -17,6 +17,7 @@ const sequelize = new Sequelize({
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   dialect: 'postgres',
+  dialectModule: require('pg'),
   logging: NODE_ENV === 'test',
 });
 
