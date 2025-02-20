@@ -39,11 +39,11 @@ dietary needs and preferences to achieve overall health goals logically.</p>
 ## Project Objectives
 ### 1.  Development Concept
 
-+ Develop the application  using the MEAN (PostgreSQL,Express, Angular, and Node.js) stack for 
++ Develop the application  using the MEAN (PostgreSQL,Express, React, and Node.js) stack for 
 scalability.
 +  Implement core features like fitness tracking, calorie monitoring, recipe recommendations and progress visualisation.
 + Store and manage user data, fitness activities and meal preferences using PostgreSQL database management system.
-+ Design a responsive and mobile-friendly user interface using the Angular framework.
++ Design a responsive and mobile-friendly user interface using the React framework, along with Tailwinds CSS and ShadCN component library.
  
 ### 2. Market Research and design
 
