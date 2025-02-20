@@ -2,12 +2,24 @@ const db = require("../models");
 const bcrypt = require("bcryptjs");
 const generateToken = require("../utils/generateToken");
 
+const verifyPasswordStrenght = (password) => {
+  if (password.length < 6) return 'Password is too short';
+  
+  const regex = /^(?=.*[A-Z])(?=.*&).+$/;
+  if (!regex.test(password)) return 'Password must contain at least one uppercase letter and one symbol';
+
+  return true;
+}
+
 module.exports.registerUser = async (req, res) => {
   const { name, email, password } = req.body;
 
   try {
     const userExists = await db.User.findOne({ where: { email } });
     if (userExists) return res.status(400).json({ message: "User already exists" });
+
+    const passwordStrength = verifyPasswordStrenght(password);
+    if (typeof passwordStrength === 'string') return res.status(400).json({ error: passwordStrength });
 
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await db.User.create({ name, email, password: hashedPassword });

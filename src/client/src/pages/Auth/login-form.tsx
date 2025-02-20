@@ -13,6 +13,7 @@ interface LoginFormProps extends React.ComponentProps<"div"> {
 /* Credit: ShadCN's demo website - https://ui.shadcn.com/blocks#login-04 */
 const LoginForm = ({ changeForm, className, ...props }: LoginFormProps) => {
     const { login } = useAuth()
+    const [error, setError] = useState<null|string>(null);
     const [formData, setFormData] = useState({
         email: "",
         password: "",
@@ -34,8 +35,9 @@ const LoginForm = ({ changeForm, className, ...props }: LoginFormProps) => {
         .then(r => {
             console.log('Logged in', r);
         })
-        .catch(err => {
-            console.error('Unable to log in:', err);
+        .catch((err: Error) => {
+            setError(err?.message || 'Unable to login'); // eslint-disable-line
+            console.error('Unable to log in:', err.message);
         })
     };
 
@@ -44,12 +46,12 @@ const LoginForm = ({ changeForm, className, ...props }: LoginFormProps) => {
             <Card className="overflow-hidden border-transparent md:border-primary">
                 <CardContent className="grid p-0 md:grid-cols-2">
                     <form className="p-6 md:p-8" onSubmit={handleSubmit}>
-                        <div className="flex flex-col gap-8">
-                            <div className="flex flex-col items-center text-center">
-                                <h2 className="text-2xl font-normal text-secondary">Welcome back to</h2>
-                                <h1 className="text-4xl font-semibold text-primary">NutrifFit</h1>
+                        <div className="flex flex-col gap-2">
+                            <div className="flex flex-col items-center text-center mb-12">
+                                <h2 className="text-3xl font-normal text-secondary">Welcome back to</h2>
+                                <h1 className="text-5xl font-semibold text-primary">NutrifFit</h1>
                             </div>
-                            <div className="grid gap-2">
+                            <div className="grid gap-2 mb-4">
                                 <Label htmlFor="email" className="text-primary">Email Address</Label>
                                 <Input
                                     id="email"
@@ -60,7 +62,7 @@ const LoginForm = ({ changeForm, className, ...props }: LoginFormProps) => {
                                     onChange={handleChange}
                                 />
                             </div>
-                            <div className="grid gap-2">
+                            <div className="grid gap-2 mb-2">
                                 <div className="flex items-center">
                                     <Label htmlFor="password" className="text-primary">Password</Label>
                                     <a
@@ -78,7 +80,8 @@ const LoginForm = ({ changeForm, className, ...props }: LoginFormProps) => {
                                     onChange={handleChange}
                                 />
                             </div>
-                            <Button type="submit" className="w-fit px-[2em] rounded-3xl mx-auto">
+                            <p className="text-red-600 text-center italic mb-2 min-h-4">{error}</p>
+                            <Button type="submit" className="w-fit px-[2em] rounded-3xl mx-auto mb-4">
                                 Login
                             </Button>
                             <div className="text-center text-sm">
