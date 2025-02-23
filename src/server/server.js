@@ -10,6 +10,14 @@ const fitnessMetricRoutes = require("./routes/fitnessMetricRoutes");
 
 const app = express();
 
+if (NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../client')));
+
+  app.get('*', (req, res) => {
+      res.sendFile(path.join(__dirname, '../client/index.html'));
+  });
+}
+
 // Middleware
 app.use(cors());
 
@@ -30,5 +38,5 @@ db.sequelize
   .then(() => console.log("Database synced"))
   .catch((err) => console.log("Error syncing database:", err));
 
-const { PORT } = require('./config/config');
+const { PORT, NODE_ENV } = require('./config/config');
 app.listen(PORT, () => console.log(`Server running on port http://localhost:${PORT}`));
