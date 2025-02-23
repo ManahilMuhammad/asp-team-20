@@ -1,6 +1,7 @@
 /* Initialise the project dependancies */
 const express = require("express");
 const cors = require("cors");
+const path = require('path');
 const db = require("./models/index");
 const { NODE_ENV, PORT } = require('./config/config');
 
