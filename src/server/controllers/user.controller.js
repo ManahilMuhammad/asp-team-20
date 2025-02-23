@@ -1,4 +1,4 @@
-const db = require("../models");
+const db = require("../models/index");
 const bcrypt = require("bcryptjs");
 const generateToken = require("../utils/generateToken");
 

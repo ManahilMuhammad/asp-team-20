@@ -1,4 +1,4 @@
-const { FitnessMetric, User } = require("../models");
+const { FitnessMetric, User } = require("../models/index");
 
 /**
  * Create a new fitness metric.

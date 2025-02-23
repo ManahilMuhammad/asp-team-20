@@ -1,4 +1,4 @@
-const { Recipe, User } = require("../models");
+const { Recipe, User } = require("../models/index");
 
 /**
  * Create a new recipe.

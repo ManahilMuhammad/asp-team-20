@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const db = require("../models");
+const db = require("../models/index");
 const { JWT_SECRET } = require("../config/config");
 
 // Determine the environment (default to development)
