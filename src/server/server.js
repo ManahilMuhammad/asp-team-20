@@ -2,6 +2,7 @@
 const express = require("express");
 const cors = require("cors");
 const db = require("./models");
+const { NODE_ENV, PORT } = require('./config/config');
 
 // Import the routes for recipes
 const recipeRoutes = require("./routes/recipeRoutes");
@@ -38,5 +39,4 @@ db.sequelize
   .then(() => console.log("Database synced"))
   .catch((err) => console.log("Error syncing database:", err));
 
-const { PORT, NODE_ENV } = require('./config/config');
 app.listen(PORT, () => console.log(`Server running on port http://localhost:${PORT}`));
