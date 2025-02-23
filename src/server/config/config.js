@@ -19,8 +19,9 @@ else console.warn(`[WARN] NODE_ENV was incorrectly set in the .env file to ${env
 
 // Validate server port
 let PORT = 3000;
+const parsedPort = Number(env.PORT);
 if (
-    typeof env.PORT === 'number' || (Number(env.PORT) !== NaN && Number(env.PORT) > 0)
+    typeof env.PORT === "number" || (!isNaN(parsedPort) && parsedPort > 0)
 ) PORT = Number(env.PORT);
 else console.warn(`[WARN] PORT was incorrectly set in the .env file to ${Number(env.PORT)}, defaulting to 3000`);
 
