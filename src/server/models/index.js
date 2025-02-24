@@ -6,15 +6,20 @@ const Sequelize = require('sequelize');
 const process = require('process');
 const { NODE_ENV } = require('../config/config');
 const basename = path.basename(__filename);
-const config = require(__dirname + '/../config/config.json')[NODE_ENV];
 const db = {};
 
-let sequelize;
-if (config.use_env_variable) {
-  sequelize = new Sequelize(process.env[config.use_env_variable], config);
-} else {
-  sequelize = new Sequelize(config.database, config.username, config.password, config);
-}
+require('dotenv').config();
+
+const sequelize = new Sequelize({
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  database: process.env.DB_DATABASE,
+  username: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
+  dialect: 'postgres',
+  dialectModule: require('pg'),
+  logging: NODE_ENV === 'test',
+});
 
 fs
   .readdirSync(__dirname)
@@ -39,5 +44,10 @@ Object.keys(db).forEach(modelName => {
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
+
+// Table models - hard coded to work with esbuild
+db.User = require('./models/user')(sequelize, Sequelize);
+db.Recipe = require('./models/recipe')(sequelize, Sequelize);
+db.FitnessMetric = require('./models/fitnessMetric')(sequelize, Sequelize);
 
 module.exports = db;
