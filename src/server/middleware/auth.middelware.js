@@ -12,9 +12,16 @@ const protect = async (req, res, next) => {
     try {
       token = token.split(" ")[1];
       const decoded = jwt.verify(token, jwtSecret); // Use jwtSecret from config.json
+        // Optionally, check if the user exists in the database using Sequelize
       req.user = await db.User.findByPk(decoded.id);
+      if (!req.user) {
+      return res.status(401).json({ valid: false, message: 'User not found.' });
+    }
+      // If verification passes, send back a valid response
+    res.json({ valid: true });
       next();
     } catch (error) {
+        // Token is invalid or expired
       res.status(401).json({ message: "Not authorized, invalid token" });
     }
   } else {
