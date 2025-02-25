@@ -1,0 +1,25 @@
+{
+  "development": {
+    "username": "bright",
+    "password": "password123",
+    "database": "nutrifit_db1",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "jwtSecret": "2db5582c19ae646cda6aa82cfc072571f4a637d0cf745249d72cb9bacf95764cc26924215c630c74a2d632443a83d8a8f6b32873f3aff7b7999e7294bdeca8e7"
+  },
+  "test": {
+    "username": "bright",
+    "password": "password123",
+    "database": "nutrifit_test_db",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "jwtSecret": "2db5582c19ae646cda6aa82cfc072571f4a637d0cf745249d72cb9bacf95764cc26924215c630c74a2d632443a83d8a8f6b32873f3aff7b7999e7294bdeca8e7"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}
