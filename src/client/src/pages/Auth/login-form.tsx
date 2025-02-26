@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useAuth } from "@/hooks/use-auth"
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 interface LoginFormProps extends React.ComponentProps<"div"> {
     changeForm: () => void;
@@ -26,6 +27,7 @@ const LoginForm = ({ changeForm, className, ...props }: LoginFormProps) => {
         });
     };
 
+    const navigate = useNavigate();
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -34,6 +36,7 @@ const LoginForm = ({ changeForm, className, ...props }: LoginFormProps) => {
         login(email, password)
         .then(r => {
             console.log('Logged in', r);
+            navigate("/home");
         })
         .catch((err: Error) => {
             setError(err?.message || 'Unable to login'); // eslint-disable-line

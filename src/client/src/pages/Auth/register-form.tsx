@@ -5,6 +5,8 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useState } from "react"
 import { useAuth } from "@/hooks/use-auth"
+import { useNavigate } from "react-router-dom"
+
 
 interface FormProps extends React.ComponentProps<"div"> {
     changeForm: () => void;
@@ -27,6 +29,7 @@ const RegisterForm = ({ changeForm, className, ...props }: FormProps) => {
         });
     };
 
+    const navigate = useNavigate();
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -46,6 +49,7 @@ const RegisterForm = ({ changeForm, className, ...props }: FormProps) => {
             if (response.ok) {
                 login(email, password);
                 console.log("Registration successful");
+                navigate("/home");
             } else {
                 // Handle registration error
                 const errorData = await response.json();
