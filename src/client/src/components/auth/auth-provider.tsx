@@ -45,7 +45,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const isTokenValid = async (token: string): Promise<boolean> => {
     try {
-      const response = await fetch(`/auth/validate`, {
+      const response = await fetch(`/api/auth/validate`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
