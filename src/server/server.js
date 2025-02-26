@@ -35,7 +35,7 @@ app.use("/api/recipes", recipeRoutes);
 // Fitness Metric API routes.
 app.use("/api/fitness-metrics", fitnessMetricRoutes);
 
-app.use('/auth', authRoutes);
+app.use('/api/auth', authRoutes);
 
 // Sync Database
 db.sequelize

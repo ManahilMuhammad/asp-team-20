@@ -1,9 +1,7 @@
-const jwt = require("jsonwebtoken");
+// This middleware only verifies user token using validateJWT utility
 const db = require("../models/index");
-const { JWT_SECRET } = require("../config/config");
+const validateToken = require('../utils/validateJWT');
 
-// Determine the environment (default to development)
-const jwtSecret = JWT_SECRET;
 
 const protect = async (req, res, next) => {
   let token = req.headers.authorization;
@@ -11,14 +9,13 @@ const protect = async (req, res, next) => {
   if (token && token.startsWith("Bearer")) {
     try {
       token = token.split(" ")[1];
-      const decoded = jwt.verify(token, jwtSecret); // Use jwtSecret from config.json
-        // Optionally, check if the user exists in the database using Sequelize
+      const decoded = validateToken(token); // Use jwtSecret from ../utils/validateJWT'
+        // Checks if the user exists in the database using Sequelize
       req.user = await db.User.findByPk(decoded.id);
       if (!req.user) {
       return res.status(401).json({ valid: false, message: 'User not found.' });
     }
-      // If verification passes, send back a valid response
-    res.json({ valid: true });
+      // Token is valid, proceed to the next middleware/route handler
       next();
     } catch (error) {
         // Token is invalid or expired

@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
 // Import an authentication middleware
-const { protect } = require("../middleware/auth.middelware");
+const authController = require('../controllers/authController');
 
 
-// Define the endpoint to validate JWT
-router.get('/validate', protect);
+// Route to simply validate the JWT token
+router.get('/validate', authController.validateTokenEndpoint);
 
 
 module.exports = router;
