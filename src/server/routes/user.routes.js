@@ -6,6 +6,6 @@ const router = express.Router();
 
 router.post("/register", registerUser);
 router.post("/login", loginUser);
-if (NODE_ENV) router.get("/", getUsers);
+if (NODE_ENV === 'development') router.get("/", getUsers);
 
 module.exports = router;
