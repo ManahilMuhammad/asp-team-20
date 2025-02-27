@@ -53,10 +53,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         },
       });
 
-      if (response.ok) {
-        return true;
+      if (!response.ok) {
+        return false;
       }
-      return false;
+      const { valid, user } = await response.json();
+
+      if (!valid) return false;
+
+      setUser(user);
+      return true;
     } catch (error) {
       console.error("Token validation failed:", error);
       return false;
