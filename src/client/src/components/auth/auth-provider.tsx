@@ -22,11 +22,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         throw new Error("Invalid credentials");
       }
 
-      const { token } = await response.json();
+      const { token, user } = await response.json() as { token: string, user: User };
       localStorage.setItem("nutrifit-token", token);
 
-      const decodedUser = parseJwt(token);
-      setUser(decodedUser);
+      setUser(user);
       // console.log('Login successful, user:', decodedUser.id,);
       // console.log('token:', token);
       window.location.href = "/profile";
@@ -56,7 +55,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       if (!response.ok) {
         return false;
       }
-      const { valid, user } = await response.json();
+      const { valid, user } = await response.json() as { valid: boolean, user: User };;
 
       if (!valid) return false;
 
@@ -79,10 +78,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       const verifyToken = async () => {
         try {
           const isValid = await isTokenValid(token);
-          if (isValid) {
-            const decodedUser = parseJwt(token);
-            setUser(decodedUser);
-          } else {
+          if (!isValid) {
             // console.log('Invalid token, logging out:', isValid, token);
             logout();
           }
