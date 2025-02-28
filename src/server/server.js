@@ -9,6 +9,7 @@ const { NODE_ENV, PORT } = require('./config/config');
 const recipeRoutes = require("./routes/recipeRoutes");
 // Import routes for fitness metrics.
 const fitnessMetricRoutes = require("./routes/fitnessMetricRoutes");
+const authRoutes = require('./routes/auth');
 
 const app = express();
 
@@ -33,6 +34,8 @@ app.use("/api/users", require("./routes/user.routes"));
 app.use("/api/recipes", recipeRoutes);
 // Fitness Metric API routes.
 app.use("/api/fitness-metrics", fitnessMetricRoutes);
+
+app.use('/api/auth', authRoutes);
 
 // Sync Database
 db.sequelize

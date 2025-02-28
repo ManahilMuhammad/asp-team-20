@@ -22,11 +22,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         throw new Error("Invalid credentials");
       }
 
-      const { token } = await response.json();
+      const { token, user } = await response.json() as { token: string, user: User };
       localStorage.setItem("nutrifit-token", token);
 
-      const decodedUser = parseJwt(token);
-      setUser(decodedUser);
+      setUser(user);
+      // console.log('Login successful, user:', decodedUser.id,);
+      // console.log('token:', token);
       window.location.href = "/profile";
     } catch (error) {
       setUser(false);
@@ -41,33 +42,30 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     window.location.href = "/";
   };
 
-  /* 
-    To Do:
-      - Create a server side endpoint to check if token is valid
-  */
-  // const isTokenValid = async (token: string): Promise<boolean> => {
-  //   try {
-  //     const response = await fetch(`/api/auth/verify`, {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         authorization: `Bearer ${token}`,
-  //       },
-  //     });
+  const isTokenValid = async (token: string): Promise<boolean> => {
+    try {
+      const response = await fetch(`/api/auth/validate`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      });
 
-  //     console.log('Checking token:', response);
+      if (!response.ok) {
+        return false;
+      }
+      const { valid, user } = await response.json() as { valid: boolean, user: User };;
 
-  //     if (response.ok) {
-  //       return true;
-  //     }
-  //     return false;
-  //   } catch (error) {
-  //     console.error("Token validation failed:", error);
-  //     return false;
-  //   }
-  //   console.log(token);
-  //   return true;
-  // };
+      if (!valid) return false;
+
+      setUser(user);
+      return true;
+    } catch (error) {
+      console.error("Token validation failed:", error);
+      return false;
+    }
+  };
 
   const isAuthenticated = () => {
     return user === null ? null : !!user;
@@ -75,33 +73,22 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   useEffect(() => {
     const token = localStorage.getItem("nutrifit-token");
-    console.log('nutrifit-token', token);
     if (token) {
 
-      /* 
-        To Do:
-          - Create a server side endpoint to check if token is valid
-      */
+      const verifyToken = async () => {
+        try {
+          const isValid = await isTokenValid(token);
+          if (!isValid) {
+            // console.log('Invalid token, logging out:', isValid, token);
+            logout();
+          }
+        } catch (err: any) { // eslint-disable-line
+          console.error('unable to verify token', err);
+          logout();
+        }
+      };
 
-      // const verifyToken = async () => {
-      //   console.log('verifyToken triggered')
-      //   try {
-      //     const isValid = await isTokenValid(token);
-      //     if (isValid) {
-      //       const decodedUser = parseJwt(token);
-      //       setUser(decodedUser);
-      //     } else {
-      //       logout();
-      //     }
-      //   } catch {
-      //     logout();
-      //   }
-      // };
-
-      // verifyToken();
-
-      const decodedUser = parseJwt(token);
-      setUser(decodedUser);
+      verifyToken();
     } else {
       setTimeout(() => setUser(false), 500);
     }
@@ -114,15 +101,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   );
 };
 
-const parseJwt = (token: string): User => {
-  const base64Url = token.split(".")[1];
-  const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
-  const jsonPayload = decodeURIComponent(
-    atob(base64)
-      .split("")
-      .map((c) => `%${c.charCodeAt(0).toString(16).padStart(2, "0")}`)
-      .join("")
-  );
+// const parseJwt = (token: string): User => {
+//   const base64Url = token.split(".")[1];
+//   const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+//   const jsonPayload = decodeURIComponent(
+//     atob(base64)
+//       .split("")
+//       .map((c) => `%${c.charCodeAt(0).toString(16).padStart(2, "0")}`)
+//       .join("")
+//   );
 
-  return JSON.parse(jsonPayload) as User;
-};
+//   return JSON.parse(jsonPayload) as User;
+// };

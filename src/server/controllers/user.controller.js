@@ -40,7 +40,8 @@ module.exports.loginUser = async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(400).json({ message: "Invalid email or password" });
 
-    res.json({ id: user.id, name: user.name, email: user.email, token: generateToken(user.id) });
+    // Send token and user data to client to ensure data sync across devices
+    res.json({ token: generateToken(user.id), user: { id: user.id, name: user.name, email: user.email } });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
