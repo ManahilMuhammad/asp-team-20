@@ -5,7 +5,7 @@ const authController = require('../controllers/authController');
 
 
 // Route to simply validate the JWT token
-router.post('/validate', authController.validateTokenEndpoint);
+router.get('/validate', authController.validateTokenEndpoint);
 
 
 module.exports = router;
