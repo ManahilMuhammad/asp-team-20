@@ -4,6 +4,8 @@ interface FetchOptions extends RequestInit {
     token?: string;
 }
 
+// This is endlessly regenerating, as the dependancy list is getting updated as the options object getting passed
+// Is getting regenerated/reset triggering the useEffect again
 const useFetchApi = <T,>(url: string, options?: FetchOptions, useToken: boolean = true) => {
     const [data, setData] = useState<T | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
@@ -37,7 +39,7 @@ const useFetchApi = <T,>(url: string, options?: FetchOptions, useToken: boolean 
         };
 
         fetchData();
-    }, [url, options, useToken]);
+    });
 
     return { data, loading, error };
 };
