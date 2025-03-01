@@ -4,7 +4,7 @@ interface FetchOptions extends RequestInit {
     token?: string;
 }
 
-const useFetchWithAuth = <T,>(url: string, options?: FetchOptions) => {
+const useFetchApi = <T,>(url: string, options?: FetchOptions, useToken: boolean = true) => {
     const [data, setData] = useState<T | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
@@ -13,9 +13,12 @@ const useFetchWithAuth = <T,>(url: string, options?: FetchOptions) => {
         const fetchData = async () => {
             setLoading(true);
             try {
-                const token = options?.token || localStorage.getItem("nutrifit-token");
                 const headers = new Headers(options?.headers || {});
-                if (token) headers.append("Authorization", `Bearer ${token}`);
+
+                if (useToken) {
+                    const token = options?.token || localStorage.getItem("nutrifit-token");
+                    if (token) headers.append("Authorization", `Bearer ${token}`);
+                }
 
                 const response = await fetch(url, {
                     ...options,
@@ -34,9 +37,9 @@ const useFetchWithAuth = <T,>(url: string, options?: FetchOptions) => {
         };
 
         fetchData();
-    }, [url, options]);
+    }, [url, options, useToken]);
 
     return { data, loading, error };
 };
 
-export default useFetchWithAuth;
+export default useFetchApi;
