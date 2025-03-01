@@ -1,12 +1,12 @@
 import React from "react";
 
-export interface RecipeData {
+export interface RecipeRecapData {
     name: string;
     icon?: string;
     tags: { label: string; color: string; }[];
 }
 
-const RecipeCard: React.FC<RecipeData> = ({ name, icon = null, tags }) => {
+const RecipeCard: React.FC<RecipeRecapData> = ({ name, icon = null, tags }) => {
     return <div className="mx-auto flex flex-col items-center">
         
         <div className="w-[265px] flex justify-evenly">

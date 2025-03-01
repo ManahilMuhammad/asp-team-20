@@ -1,4 +1,4 @@
-import RecipeCard, { RecipeData } from "@/components/recipe-card";
+import RecipeCard, { RecipeRecapData } from "@/components/recipe-card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 // import useFetchWithAuth from "@/hooks/use-fetch-api";
 import { Loader2, TriangleAlert } from "lucide-react";
@@ -42,9 +42,9 @@ import { useEffect, useState } from "react";
 
 const SuggestedRecipes = () => {
 
-    const [recipes, setSuggestedRecipes] = useState<RecipeData[]>([]);
+    const [recipes, setSuggestedRecipes] = useState<RecipeRecapData[]>([]);
 
-    const { data, loading, error } = { data: null, loading: false, error: 'No current API endpoint to suggest recipes\nManually set recipe suggestions in ./src/pages/Recipes/Suggested/main.tsx to test the component.' };//useFetchWithAuth<RecipeData[]>("/api/recipes");
+    const { data, loading, error } = { data: null, loading: false, error: 'No current API endpoint to suggest recipes\nManually set recipe suggestions in ./src/pages/Recipes/Suggested/main.tsx to test the component.' };//useFetchWithAuth<RecipeRecapData[]>("/api/recipes");
 
     useEffect(() => {
         if (data && !loading && !error) setSuggestedRecipes(data);
