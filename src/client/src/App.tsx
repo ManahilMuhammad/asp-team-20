@@ -20,7 +20,6 @@ const App = () => {
         <Route path="/auth" element={<AuthPage />} />
 
         <Route path="/recipes" element={<RecipePage />}>
-          <Route index element={<>Parent</>} />
           <Route path="create" element={<ProtectedRoute children={<CreateRecipe />} />} />
           <Route path="saved" element={<ProtectedRoute children={<SavedRecipes />} />} />
           <Route path="search" element={<SearchRecipes />} />
