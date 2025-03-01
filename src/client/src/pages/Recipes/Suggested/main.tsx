@@ -7,7 +7,7 @@ const SuggestedRecipes = () => {
         <h5 className="text-sm font-medium text-nutrifit-tertiary text-center">The following Recipes are suggested based on the ingredients you have available and your dieteray restrictions.</h5>
     
         <ScrollArea className="w-full mt-4">
-            <div className="grid grid-cols-auto-fit gap-6 mt-4 max-w-5xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mt-4 max-w-[90vw] mx-auto">
                 <RecipeCard
                     name="Chicken Parmesan"
                     icon="https://www.mamaknowsglutenfree.com/wp-content/uploads/2023/06/gluten-free-chicken-parmesan-rc-1.jpg"
