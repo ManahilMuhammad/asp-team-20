@@ -11,6 +11,7 @@ export default {
   		},
   		colors: {
 			/* NutriFit specific properties */
+			['nutrifit-tertiary']: 'var(--nutrifit-tertiary-color)',
 
 			/* ShadCN default colors */
   			background: 'hsl(var(--background))',
