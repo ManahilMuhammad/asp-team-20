@@ -10,6 +10,7 @@ import CreateRecipe from "./pages/Recipes/Create/main";
 import SavedRecipes from "./pages/Recipes/Saved/main";
 import SearchRecipes from "./pages/Recipes/SearchRecipes/main";
 import SuggestedRecipes from "./pages/Recipes/Suggested/main";
+import RecipeView from "./pages/Recipes/View/main";
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
           <Route path="saved" element={<ProtectedRoute children={<SavedRecipes />} />} />
           <Route path="search" element={<SearchRecipes />} />
           <Route path="suggestions" element={<ProtectedRoute children={<SuggestedRecipes />} />} />
+          <Route path="view/:id" element={<RecipeView />} />
         </Route>
 
       </Routes>
