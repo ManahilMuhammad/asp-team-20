@@ -24,7 +24,7 @@ const App = () => {
           <Route path="create" element={<ProtectedRoute children={<CreateRecipe />} />} />
           <Route path="saved" element={<ProtectedRoute children={<SavedRecipes />} />} />
           <Route path="search" element={<SearchRecipes />} />
-          <Route path="suggestions" element={<SuggestedRecipes />} />
+          <Route path="suggestions" element={<ProtectedRoute children={<SuggestedRecipes />} />} />
         </Route>
 
       </Routes>
