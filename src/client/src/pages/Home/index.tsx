@@ -1,9 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useAuth } from "@/hooks/use-auth";
+import { Loader2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
     const navigate = useNavigate();
+
+    const { isAuthenticated } = useAuth();
+
     return <>
         <div className="flex flex-col items-center gap-8 mt-16">
             <h3 className="text-5xl text-nutrifit-tertiary">Welcome to</h3>
@@ -22,9 +27,24 @@ const HomePage = () => {
                 </CardContent>
             </Card>
 
-            <Button onClick={() => {navigate('/auth')}}>
-                Log In / Register
-            </Button>
+            {
+                /* If null then the background checks haven't checked if auth'ed or not, show loading button */
+                isAuthenticated() === null ? 
+                <Button onClick={() => {}} disabled>
+                    <Loader2 className="animate-spin"/>
+                </Button> :
+
+                /* If authenticated show navigate to profile page */
+                isAuthenticated() ?
+                <Button onClick={() => {navigate('/profile')}}>
+                    Go to your Profile
+                </Button> :
+                
+                /* If NOT authenticated show navigate to login/register page */
+                <Button onClick={() => {navigate('/auth')}} disabled={isAuthenticated() === null}>
+                    Log In / Register
+                </Button>
+            }
         </div>
     </>
 }
