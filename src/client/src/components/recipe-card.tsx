@@ -9,7 +9,7 @@ interface RecipeCardProps {
 const RecipeCard: React.FC<RecipeCardProps> = ({ name, icon = null, tags }) => {
     return <div className="mx-auto flex flex-col items-center">
         
-        <div className="w-full flex justify-evenly">
+        <div className="w-[265px] flex justify-evenly">
             {tags.map((tag, index) => (
             <span
                 key={index}
@@ -21,7 +21,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ name, icon = null, tags }) => {
             ))}
         </div>
 
-        <div className="w-[275px] bg-[#7BAE20] rounded-t-xl text-white text-center text-xl font-light pt-2 mx-auto">
+        <div className="w-[285px] bg-[#7BAE20] rounded-t-xl text-white text-center text-xl font-light pt-2 mx-auto">
             {name}
         </div>
         
