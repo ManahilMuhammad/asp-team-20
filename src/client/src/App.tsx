@@ -5,6 +5,8 @@ import ProfilePage from "./pages/Profile";
 import AuthPage from "./pages/Auth";
 import ProtectedRoute from "./components/protected-route";
 
+import NotFoundPage from "./pages/404";
+
 const App = () => {
   return (
     <Router>
@@ -12,6 +14,10 @@ const App = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/profile" element={<ProtectedRoute children={<ProfilePage />} />} />
         <Route path="/auth" element={<AuthPage />} />
+
+        {/* 404 Error page when navigating to an unknown page */}
+        <Route path="*" element={<NotFoundPage />} />
+
       </Routes>
     </Router>
   );
