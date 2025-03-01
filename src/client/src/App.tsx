@@ -11,6 +11,7 @@ import SavedRecipes from "./pages/Recipes/Saved/main";
 import SearchRecipes from "./pages/Recipes/SearchRecipes/main";
 import SuggestedRecipes from "./pages/Recipes/Suggested/main";
 import RecipeView from "./pages/Recipes/View/main";
+import NotFoundPage from "./pages/404";
 
 const App = () => {
   return (
@@ -28,6 +29,8 @@ const App = () => {
           <Route path="view/:id" element={<RecipeView />} />
         </Route>
 
+        {/* 404 Error page when navigating to an unknown page */}
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Router>
   );
