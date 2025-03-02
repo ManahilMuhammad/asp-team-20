@@ -15,8 +15,8 @@ const SearchRecipes = () => {
         console.log('Handle Search pressed current laoding state:', loading, "searching for:", searchValue);
         setLoading(!loading);
         setResults([
-            { id: 1, name: "Chicken Parmesan", color: undefined, icon: undefined },
-            { id: 1, name: "Chicken Parmesan", color: undefined, icon: undefined }
+            { id: 1, name: "Chicken Parmesan", color: "#e03434", icon: undefined },
+            { id: 1, name: "Chicken Parmesan", color: "#ff8c14", icon: undefined }
         ]);
 
         /* 
@@ -55,7 +55,9 @@ const SearchRecipes = () => {
                     results.map(({ id, icon = "https://placehold.co/50", name, color = "#9494d8" }, i) => (
                         <Button
                             key={i}
-                            className={`rounded-full flex items-center px-4 py-2 space-x-2 sm:mx-auto`}
+                            className={
+                                `rounded-full flex items-center px-4 py-2 space-x-2 sm:mx-auto w-full md:w-[80%] lg:w-[45%]`
+                            }
                             style={{ backgroundColor: color }}
                             onClick={() => navigate(`/recipes/view/${id}`)}
                         >
