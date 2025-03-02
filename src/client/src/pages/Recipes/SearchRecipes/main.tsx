@@ -15,6 +15,7 @@ const SearchRecipes = () => {
         console.log('Handle Search pressed current laoding state:', loading, "searching for:", searchValue);
         setLoading(!loading);
         setResults([
+            { id: 1, name: "Chicken Parmesan", color: undefined, icon: undefined },
             { id: 1, name: "Chicken Parmesan", color: undefined, icon: undefined }
         ]);
 
@@ -27,7 +28,7 @@ const SearchRecipes = () => {
     }
 
     return (
-        <div className="px-8 pt-12">
+        <div className="px-8 pt-12 md:px-[10vw] lg:px-[18vw]">
             <div>
                 <h1 className="text-3xl font-medium text-nutrifit-tertiary text-left">Recipe Search</h1>
                 <div className="relative  items-center h-[3em] mt-2">
@@ -49,12 +50,12 @@ const SearchRecipes = () => {
                 </div>
             </div>
 
-            <div className="mt-[2em]">{/* Search Results */}
+            <div className="mt-[2em] flex flex-row gap-2 lg:gap-6 flex-wrap">{/* Search Results */}
                 {
                     results.map(({ id, icon = "https://placehold.co/50", name, color = "#9494d8" }, i) => (
                         <Button
                             key={i}
-                            className={`rounded-full flex items-center px-4 py-2 space-x-2`}
+                            className={`rounded-full flex items-center px-4 py-2 space-x-2 sm:mx-auto`}
                             style={{ backgroundColor: color }}
                             onClick={() => navigate(`/recipes/view/${id}`)}
                         >
