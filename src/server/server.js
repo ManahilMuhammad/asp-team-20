@@ -10,6 +10,7 @@ const recipeRoutes = require("./routes/recipeRoutes");
 // Import routes for fitness metrics.
 const fitnessMetricRoutes = require("./routes/fitnessMetricRoutes");
 const authRoutes = require('./routes/auth');
+const mealRoutes = require('./routes/mealRoutes'); // Import meal routes
 
 const app = express();
 
@@ -36,6 +37,8 @@ app.use("/api/recipes", recipeRoutes);
 app.use("/api/fitness-metrics", fitnessMetricRoutes);
 
 app.use('/api/auth', authRoutes);
+
+app.use('/api/meals', mealRoutes);
 
 // Sync Database
 db.sequelize
