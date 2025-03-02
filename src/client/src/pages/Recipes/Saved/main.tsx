@@ -2,7 +2,6 @@
 
 import RecipeCard, { RecipeRecapData } from "@/components/recipe-card";
 import { Button } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Info } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -71,7 +70,7 @@ const SavedRecipes = () => {
         <div className="px-8 pt-12 md:px-[10vw] lg:px-[18vw]">
             <h1 className="text-3xl font-medium text-nutrifit-tertiary text-left">Saved Recipes</h1>
 
-            <div className="border-b-[1.5px] border-teal-600 flex flex-row gap-4 justify-center">
+            <div className="border-b-[1.5px] border-teal-600 flex flex-row gap-4 justify-center mt-1">
                 {
                     placeholderTags.map(({name, color}) => (
                         <Button
@@ -92,7 +91,7 @@ const SavedRecipes = () => {
             - Add a delete icon
             
             */}
-            <ScrollArea className="mt-8">
+            <div className="mt-8 max-h-[80vh]">
                 {
                     filteredRecipes.length > 0 ?
                     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mt-4 max-w-[90vw] mx-">{
@@ -107,7 +106,7 @@ const SavedRecipes = () => {
                     </div>
                 }
                 
-            </ScrollArea>
+            </div>
         </div>
     )
 };
