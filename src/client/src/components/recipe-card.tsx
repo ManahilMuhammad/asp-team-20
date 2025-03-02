@@ -7,7 +7,7 @@ export interface RecipeRecapData {
     id: number;
     name: string;
     icon?: string;
-    tags: { label: string; color: string; }[];
+    tags: string[];
 }
 
 const RecipeCard: React.FC<RecipeRecapData> = ({ id, name, icon = null, tags }) => {
@@ -20,9 +20,9 @@ const RecipeCard: React.FC<RecipeRecapData> = ({ id, name, icon = null, tags }) 
             <span
                 key={index}
                 className="text-white px-3 py-1 rounded-t-lg text-sm font-medium"
-                style={{ backgroundColor: tag.color }}
+                // style={{ backgroundColor: tag.color }}
             >
-                {tag.label}
+                {tag}
             </span>
             ))}
         </div>

@@ -9,38 +9,25 @@ import { useEffect, useState } from "react";
 //         id: 1,
 //         name: "Chicken Parmesan",
 //         icon: "https://www.mamaknowsglutenfree.com/wp-content/uploads/2023/06/gluten-free-chicken-parmesan-rc-1.jpg",
-//         tags: [
-//             { label: "Nut Free", color: "red" },
-//             { label: "Keto", color: "blue" },
-//         ],
+//         tags: ["Keto", "Nut free"],
 //     },
 //     {
 //         id: 2,
 //         name: "Avocado Toast",
 //         icon: "https://veganhuggs.com/wp-content/uploads/2023/02/white-bean-avocado-toast.jpg",
-//         tags: [
-//             { label: "Vegan", color: "green" },
-//             { label: "Gluten-Free", color: "purple" },
-//         ],
+//         tags: ["Vegan", "Low cal"],
 //     },
 //     {
 //         id: 3,
 //         name: "Salmon Teriyaki",
 //         icon: "https://rasamalaysia.com/wp-content/uploads/2016/03/salmon-teriyaki-thumb.jpg",
-//         tags: [
-//             { label: "High Protein", color: "orange" },
-//             { label: "Omega-3", color: "blue" },
-//         ],
+//         tags: ["Pescatarian"],
 //     },
 //     {
 //         id: 4,
 //         name: "Quinoa Salad",
 //         icon: "https://www.crowdedkitchen.com/wp-content/uploads/2022/10/Pumpkin-Quinoa-Salad-11.jpg",
-//         tags: [
-//             { label: "Vegan", color: "green" },
-//             { label: "Gluten-Free", color: "purple" },
-//             { label: "Low Carb", color: "yellow" },
-//         ],
+//         tags: ["Vegan"],
 //     },
 // ];
 
