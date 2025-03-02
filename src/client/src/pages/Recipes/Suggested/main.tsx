@@ -68,11 +68,12 @@ const SuggestedRecipes = () => {
                 }
 
                 {
-                    error && <div className="mx-auto text-center">
-                        <p className="flex items-center mb-2">
-                            <TriangleAlert className="mr-2 text-red-500"/> An error occured while obtaining the suggested recipes:
-                        </p>
-                        <span className="text-red-500">{error}</span>
+                    error && <div className="mx-auto">
+                        <div className="flex flex-row items-center mb-2 gap-2">
+                            <TriangleAlert className="mr-1 text-red-500" size={'2em'}/>
+                            <p>An error occured while obtaining the suggested recipes:</p>
+                        </div>
+                        <p className="text-red-500 text-center">{error}</p>
                     </div>
                 }
 
