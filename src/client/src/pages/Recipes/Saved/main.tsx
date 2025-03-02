@@ -46,6 +46,7 @@ const SavedRecipes = () => {
 
     const [selectedTag, setSelectedTag] = useState<string>('All');
     const [savedRecipes, setSavedRecipes] = useState<RecipeRecapData[]>([]);
+    const [filteredRecipes, setFilteredRecipes] = useState<RecipeRecapData[]>([]);
 
     /* 
     
@@ -57,6 +58,14 @@ const SavedRecipes = () => {
     useEffect(() => {
         setSavedRecipes([]);
     }, []);
+
+    useEffect(() => {
+        setFilteredRecipes(
+            savedRecipes.filter(
+                (recipe) => selectedTag === "All" || recipe.tags.includes(selectedTag)
+            )
+        );
+    }, [savedRecipes, selectedTag]);
 
     return (
         <div className="px-8 pt-12 md:px-[10vw] lg:px-[18vw]">
@@ -85,12 +94,9 @@ const SavedRecipes = () => {
             */}
             <ScrollArea className="mt-8">
                 {
-                    savedRecipes.length > 1 ?
+                    filteredRecipes.length > 0 ?
                     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mt-4 max-w-[90vw] mx-">{
-                        savedRecipes.filter(
-                            (recipe) => selectedTag === "All" || recipe.tags.includes(selectedTag)
-                        )
-                        .map(({ id, name, icon }) => (
+                        filteredRecipes.map(({ id, name, icon }) => (
                             <RecipeCard key={id} id={id} name={name} icon={icon} tags={[]} />
                         )) 
                     }</div> :
