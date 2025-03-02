@@ -5,6 +5,8 @@ import ProfilePage from "./pages/Profile";
 import AuthPage from "./pages/Auth";
 import ProtectedRoute from "./components/protected-route";
 
+import NotFoundPage from "./pages/404";
+
 import RecipePage from "./pages/Recipes/main";
 import CreateRecipe from "./pages/Recipes/Create/main";
 import SavedRecipes from "./pages/Recipes/Saved/main";
@@ -20,6 +22,7 @@ const App = () => {
         <Route path="/profile" element={<ProtectedRoute children={<ProfilePage />} />} />
         <Route path="/auth" element={<AuthPage />} />
 
+
         <Route path="/recipes" element={<RecipePage />}>
           <Route path="create" element={<ProtectedRoute children={<CreateRecipe />} />} />
           <Route path="saved" element={<ProtectedRoute children={<SavedRecipes />} />} />
@@ -27,6 +30,9 @@ const App = () => {
           <Route path="suggestions" element={<ProtectedRoute children={<SuggestedRecipes />} />} />
           <Route path="view/:id" element={<RecipeView />} />
         </Route>
+
+        {/* 404 Error page when navigating to an unknown page */}
+        <Route path="*" element={<NotFoundPage />} />
 
       </Routes>
     </Router>
