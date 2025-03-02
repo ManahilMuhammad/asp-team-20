@@ -23,13 +23,13 @@ const HomePage = () => {
                 </CardHeader>
                 <CardContent className="max-w-[80vw] md:max-w-[60vw] lg:max-w-[50vw]">
                     Nutrifit is a web based application to help you track you fitness and find the best meals suited for you.
-                    Based on your nutritional needs, available ingredients and specific diet plans it'll suggest the most adapted meals for you while also allowing you to prepare and plan your future meals.
+                    Based on your nutritional needs, available ingredients and specific diet plans it'll suggest the most adapted meals for you while also allowing you to prepare and plan your future meals. 
                 </CardContent>
             </Card>
 
             {
                 /* If null then the background checks haven't checked if auth'ed or not, show loading button */
-                isAuthenticated() === null ?
+                isAuthenticated() === null ? 
                 <Button onClick={() => {}} disabled>
                     <Loader2 className="animate-spin"/>
                 </Button> :
@@ -39,7 +39,7 @@ const HomePage = () => {
                 <Button onClick={() => {navigate('/profile')}}>
                     Go to your Profile
                 </Button> :
-
+                
                 /* If NOT authenticated show navigate to login/register page */
                 <Button onClick={() => {navigate('/auth')}} disabled={isAuthenticated() === null}>
                     Log In / Register
