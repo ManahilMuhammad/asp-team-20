@@ -4,8 +4,9 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Loader2, TriangleAlert } from "lucide-react";
 import { useEffect, useState } from "react";
 
-// const placeholderRecipes: RecipeData[] = [
+// const placeholderRecipes: RecipeRecapData[] = [
 //     {
+//         id: 1,
 //         name: "Chicken Parmesan",
 //         icon: "https://www.mamaknowsglutenfree.com/wp-content/uploads/2023/06/gluten-free-chicken-parmesan-rc-1.jpg",
 //         tags: [
@@ -14,6 +15,7 @@ import { useEffect, useState } from "react";
 //         ],
 //     },
 //     {
+//         id: 2,
 //         name: "Avocado Toast",
 //         icon: "https://veganhuggs.com/wp-content/uploads/2023/02/white-bean-avocado-toast.jpg",
 //         tags: [
@@ -22,6 +24,7 @@ import { useEffect, useState } from "react";
 //         ],
 //     },
 //     {
+//         id: 3,
 //         name: "Salmon Teriyaki",
 //         icon: "https://rasamalaysia.com/wp-content/uploads/2016/03/salmon-teriyaki-thumb.jpg",
 //         tags: [
@@ -30,6 +33,7 @@ import { useEffect, useState } from "react";
 //         ],
 //     },
 //     {
+//         id: 4,
 //         name: "Quinoa Salad",
 //         icon: "https://www.crowdedkitchen.com/wp-content/uploads/2022/10/Pumpkin-Quinoa-Salad-11.jpg",
 //         tags: [
@@ -73,9 +77,10 @@ const SuggestedRecipes = () => {
                 }
 
                 {
-                    recipes.length > 0 && recipes.map((recipe, i) => (
+                    recipes.length > 0 && recipes.map((recipe) => (
                         <RecipeCard
-                            key={i}
+                            key={recipe.id}
+                            id={recipe.id}
                             name={recipe.name}
                             icon={recipe.icon}
                             tags={recipe.tags}
