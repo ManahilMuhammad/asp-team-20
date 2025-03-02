@@ -5,7 +5,7 @@ const generateToken = require("../utils/generateToken");
 const verifyPasswordStrenght = (password) => {
   if (password.length < 6) return 'Password is too short';
   
-  const regex = /^(?=.*[A-Z])(?=.*&).+$/;
+  const regex = /^(?=.*[A-Z])(?=.*[\W_]).+$/;
   if (!regex.test(password)) return 'Password must contain at least one uppercase letter and one symbol';
 
   return true;
