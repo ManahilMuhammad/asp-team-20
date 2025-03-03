@@ -1,7 +1,13 @@
 const axios = require('axios'); // To fetch recipe recommendations from a public API
 const qs = require('qs'); // Import qs for query string formatting
-// Fetch recipe recommendations
+
+const { SPOONACULAR_APIKEY } = require('../config/config');
+
+// Search for recipes based on a query string
 exports.fetchRecipes = async (req, res) => {
+
+  if (!SPOONACULAR_APIKEY) return res.status(500).json({ error: 'Unable to query API.' });
+
   try {
     const { query } = req.query;
 
@@ -11,10 +17,10 @@ exports.fetchRecipes = async (req, res) => {
       return res.status(400).json({ error: 'Search query is required.' });
     }
 
-  // API URL
+    // API URL
     const apiUrl = `https://api.spoonacular.com/recipes/complexSearch?query=${encodeURIComponent(
       query
-    )}&apiKey=enterYourAPIKeyHere`;
+    )}&apiKey=${SPOONACULAR_APIKEY}`;
     const response = await axios.get(apiUrl);
 
     if (response.data && response.data.results) {
@@ -30,6 +36,9 @@ exports.fetchRecipes = async (req, res) => {
 
 // Calculate nutritional value
 exports.calculateNutrition = async (req, res) => {
+
+  if (!SPOONACULAR_APIKEY) return res.status(500).json({ error: 'Unable to query API.' });
+
   try {
     const { ingredients } = req.body;
 
@@ -41,7 +50,7 @@ exports.calculateNutrition = async (req, res) => {
     const ingredientList = ingredients.join('\n');
 
     // Example: Call a nutrition API to get nutritional values
-    const apiUrl = `https://api.spoonacular.com/recipes/parseIngredients?apiKey=enterYourAPIKeyHere`;
+    const apiUrl = `https://api.spoonacular.com/recipes/parseIngredients?apiKey=${SPOONACULAR_APIKEY}`;
 
     // Prepare form data
     const formData = qs.stringify({
