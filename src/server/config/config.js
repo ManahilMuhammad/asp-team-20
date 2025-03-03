@@ -49,8 +49,18 @@ else {
     JWT_SECRET = generateRandomString(20);
 }
 
+let SPOONACULAR_APIKEY;
+if (
+    typeof env.SPOONACULAR_APIKEY === 'string' &&
+    env.SPOONACULAR_APIKEY.length >= 10
+) SPOONACULAR_APIKEY = env.SPOONACULAR_APIKEY;
+else {
+    console.warn('[WARN] no valid SPOONACULAR_APIKEY is provided, the API won\'t work !');
+}
+
 module.exports = {
     NODE_ENV,
     PORT,
     JWT_SECRET,
+    SPOONACULAR_APIKEY
 }
