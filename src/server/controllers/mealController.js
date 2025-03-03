@@ -6,7 +6,11 @@ const { SPOONACULAR_APIKEY } = require('../config/config');
 // Search for recipes based on a query string
 exports.fetchRecipes = async (req, res) => {
 
-  if (!SPOONACULAR_APIKEY) return res.status(500).json({ error: 'Unable to query API.' });
+  // If the api key isn't set return a generic response
+  if (!SPOONACULAR_APIKEY) {
+    console.error("mealController can't run as it doesn't have a valid API Key to query Spoonacular's API !");
+    return res.status(500).json({ error: 'Unable to query API.' });
+  }
 
   try {
     const { query } = req.query;
@@ -37,7 +41,11 @@ exports.fetchRecipes = async (req, res) => {
 // Calculate nutritional value
 exports.calculateNutrition = async (req, res) => {
 
-  if (!SPOONACULAR_APIKEY) return res.status(500).json({ error: 'Unable to query API.' });
+  // If the api key isn't set return a generic response
+  if (!SPOONACULAR_APIKEY) {
+    console.error("mealController can't run as it doesn't have a valid API Key to query Spoonacular's API !");
+    return res.status(500).json({ error: 'Unable to query API.' });
+  }
 
   try {
     const { ingredients } = req.body;
