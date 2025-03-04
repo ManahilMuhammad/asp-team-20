@@ -61,13 +61,29 @@ const getRecipes = async (req, res) => {
  */
 const getRecipeById = async (req, res) => {
   try {
-    const recipe = await Recipe.findByPk(req.params.id, {
-      include: {
-        model: User,
-        as: "user",
-        attributes: ["id", "name", "email"],
-      },
-    });
+
+    // @Brightiya Why the include user section ? Is it to only allow searching for recipes owned by the user
+    // It currently throws errors when querying the DB
+    // Issue is only present when querying from the frontend (src/pages/Recipes/View/main.tsx) using the fetch-api hook
+
+    /* 
+      Error fetching recipe: EagerLoadingError [SequelizeEagerLoadingError]: User is not associated to Recipe!
+        at Recipe._getIncludedAssociation (asp-team-20\src\server\node_modules\sequelize\lib\model.js:565:13)
+        at Recipe._validateIncludedElement (asp-team-20\src\server\node_modules\sequelize\lib\model.js:502:53)
+        at asp-team-20\src\server\node_modules\sequelize\lib\model.js:421:37
+        at Array.map (<anonymous>)
+        at Recipe._validateIncludedElements (asp-team-20\src\server\node_modules\sequelize\lib\model.js:417:39)
+    */
+
+    // const recipe = await Recipe.findByPk(req.params.id, {
+    //   include: {
+    //     model: User,
+    //     as: "user",
+    //     attributes: ["id", "name", "email"],
+    //   },
+    // });
+
+    const recipe = await Recipe.findByPk(req.params.id);
 
     if (!recipe) {
       return res.status(404).json({ message: "Recipe not found" });
