@@ -13,6 +13,7 @@ import SavedRecipes from "./pages/Recipes/Saved/main";
 import SearchRecipes from "./pages/Recipes/SearchRecipes/main";
 import SuggestedRecipes from "./pages/Recipes/Suggested/main";
 import RecipeView from "./pages/Recipes/View/main";
+import InvalidRecipeView from "./pages/Recipes/View/main-invalid";
 
 const App = () => {
   return (
@@ -29,6 +30,7 @@ const App = () => {
           <Route path="search" element={<SearchRecipes />} />
           <Route path="suggestions" element={<ProtectedRoute children={<SuggestedRecipes />} />} />
           <Route path="view/:id" element={<RecipeView />} />
+          <Route path="view" element={<InvalidRecipeView />} />
         </Route>
 
         {/* 404 Error page when navigating to an unknown page */}
