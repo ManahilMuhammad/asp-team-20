@@ -41,12 +41,12 @@ const SuggestedRecipes = () => {
         if (data && !loading && !error) setSuggestedRecipes(data);
     }, [data, loading, error]);
 
-    return <div className="px-4 pt-16">
+    return <div className="px-4 pt-10">
         <h1 className="text-2xl font-medium text-nutrifit-tertiary text-center">Suggested Recipes</h1>
         <h5 className="text-sm font-medium text-nutrifit-tertiary text-center">The following Recipes are suggested based on the ingredients you have available and your dieteray restrictions.</h5>
     
-        <ScrollArea className="w-full mt-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mt-4 max-w-[90vw] mx-auto">
+        <ScrollArea className="w-full">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 max-w-[90vw] mx-auto">
 
                 {
                     loading && !error && <div className="mx-auto flex items-center gap-2">
