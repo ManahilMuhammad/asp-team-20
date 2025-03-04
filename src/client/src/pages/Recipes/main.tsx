@@ -9,7 +9,7 @@ const RecipePage = () => {
 
     return <>
         <Outlet />
-        <div className="absolute bottom-[1em] left-1/2 -translate-x-1/2 z-[1000]">
+        <div className="fixed bottom-[1em] left-1/2 -translate-x-1/2 z-[2000]">
             <Button
                 className="rounded-full w-[3em] h-[3em] p-[0.4em] bg-[#FFAF01] hover:bg-[#c98a02] dark:hover:bg-[#ffd06b] shadow-xl"
                 onClick={() => {
@@ -21,7 +21,7 @@ const RecipePage = () => {
                 }}
                 asChild
             >
-                <HomeIcon strokeWidth={1} size={48} className="text-[#424242]" />
+                <HomeIcon strokeWidth={1} size={48} color="#424242" />
             </Button>
         </div>
     </>;
