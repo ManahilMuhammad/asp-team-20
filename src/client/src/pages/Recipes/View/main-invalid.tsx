@@ -39,7 +39,7 @@ const InvalidRecipeView = () => {
                     <div className="flex items-end justify-center gap-3">
                         <div className="flex flex-col gap-1">
                             <Label htmlFor="recipe-id" className="text-muted-foreground">Recipe ID:</Label>
-                            <Input id="recipe-id" placeholder="Enter ID" type="number" className="w-[20em]" value={recipeId} onChange={(e) => setRecipeID(e.target.value)}/>
+                            <Input id="recipe-id" placeholder="Enter ID" type="number" className="w-[100%]" value={recipeId} onChange={(e) => setRecipeID(e.target.value)}/>
                         </div>
                         <Button className="self-end" onClick={navigateToRecipe}>Navigate</Button>
                     </div>
