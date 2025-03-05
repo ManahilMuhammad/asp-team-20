@@ -15,6 +15,8 @@ module.exports = (sequelize, DataTypes) => {
 
   User.init(
     {
+
+      // Profile Display Elements 
       name: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -22,6 +24,22 @@ module.exports = (sequelize, DataTypes) => {
           len: [3, 255], // Minimum length of 3 characters
         },
       },
+      motto: {
+        allowNull: false,
+        defaultValue: "",
+        validate: {
+          len: [3, 255], // Minimum length of 3 characters
+        },
+      },
+      avatar: {
+        allowNull: false,
+        defaultValue: "default",
+        validate: {
+          len: [3, 255], // Minimum length of 3 characters
+        },
+      },
+
+      // Credentials
       email: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -33,6 +51,50 @@ module.exports = (sequelize, DataTypes) => {
       password: {
         type: DataTypes.STRING,
         allowNull: false,
+      },
+      
+      // Private details
+      gender: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: 'rather not say',
+        validate: {
+          isIn: {
+            args: [['male', 'female', 'rather not say']],
+            msg: "Gender must be 'male', 'female', or 'rather not say'",
+          },
+        },
+      },
+      age: {
+        type: DataTypes.TINYINT,
+        allowNull: false,
+        validate: {
+          isInt: true,
+          min: 12,      // users at least the age of 13 ?
+        },
+      },
+      height: {
+        type: DataTypes.SMALLINT,
+        allowNull: false,
+        validate: {
+          isInt: true,
+          min: 50,      // minimum height of 50cm
+        },
+      },
+      weight: {
+        type: DataTypes.SMALLINT,
+        allowNull: false,
+        validate: {
+          isInt: true,
+          min: 20,      // minimum weight of 20kg
+        },
+      },
+      goal: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        validate: {
+          len: [3, 255], // Minimum length of 3 characters
+        },
       },
     },
     {
