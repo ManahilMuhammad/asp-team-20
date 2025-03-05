@@ -7,10 +7,10 @@ export interface RecipeRecapData {
     id: number;
     name: string;
     icon?: string;
-    tags: string[];
+    tags?: string[];
 }
 
-const RecipeCard: React.FC<RecipeRecapData> = ({ id, name, icon = null, tags }) => {
+const RecipeCard: React.FC<RecipeRecapData> = ({ id, name, icon = null, tags = [] }) => {
     const navigate = useNavigate();
     
     return <div className="mx-auto flex flex-col items-center">

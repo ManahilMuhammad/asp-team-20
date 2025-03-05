@@ -62,7 +62,7 @@ const SavedRecipes = () => {
     useEffect(() => {
         setFilteredRecipes(
             savedRecipes.filter(
-                (recipe) => selectedTag === "All" || recipe.tags.includes(selectedTag)
+                (recipe) => selectedTag === "All" || (recipe.tags && recipe.tags.includes(selectedTag))
             )
         );
     }, [savedRecipes, selectedTag]);
@@ -98,7 +98,7 @@ const SavedRecipes = () => {
                     <ScrollArea className="max-h-[84vh] overflow-auto scrollbar-thin">
                         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 mt-4 max-w-[90vw] pb-[2em]">{
                             filteredRecipes.map(({ id, name, icon }) => (
-                                <RecipeCard key={id} id={id} name={name} icon={icon} tags={[]} />
+                                <RecipeCard key={id} id={id} name={name} icon={icon} />
                             )) 
                         }</div>
                     </ScrollArea> :
