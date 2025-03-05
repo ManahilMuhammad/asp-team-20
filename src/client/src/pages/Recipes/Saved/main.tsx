@@ -2,6 +2,7 @@
 
 import RecipeCard, { RecipeRecapData } from "@/components/recipe-card";
 import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { Info } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -91,14 +92,16 @@ const SavedRecipes = () => {
             - Add a delete icon
             
             */}
-            <div className="mt-8 max-h-[80vh]">
+            <div className="mt-2">
                 {
                     filteredRecipes.length > 0 ?
-                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 mt-4 max-w-[90vw] pb-[2em]">{
-                        filteredRecipes.map(({ id, name, icon }) => (
-                            <RecipeCard key={id} id={id} name={name} icon={icon} tags={[]} />
-                        )) 
-                    }</div> :
+                    <ScrollArea className="max-h-[84vh] overflow-auto scrollbar-thin">
+                        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 mt-4 max-w-[90vw] pb-[2em]">{
+                            filteredRecipes.map(({ id, name, icon }) => (
+                                <RecipeCard key={id} id={id} name={name} icon={icon} tags={[]} />
+                            )) 
+                        }</div>
+                    </ScrollArea> :
 
                     <div className="flex items-center justify-center gap-2 py-2">
                         <Info className=" animate-bounce" />
