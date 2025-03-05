@@ -48,7 +48,7 @@ const SuggestedRecipes = () => {
         <h5 className="text-sm font-medium text-nutrifit-tertiary text-center">The following Recipes are suggested based on the ingredients you have available and your dieteray restrictions.</h5>
     
         <ScrollArea className="w-full">
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 max-w-[90vw] mx-auto mb-[2em]">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 max-w-[90vw] mx-auto">
 
                 {
                     loading && !error && <div className="mx-auto flex items-center gap-2">
@@ -67,15 +67,19 @@ const SuggestedRecipes = () => {
                 }
 
                 {
-                    recipes.length > 0 && recipes.map((recipe) => (
-                        <RecipeCard
-                            key={recipe.id}
-                            id={recipe.id}
-                            name={recipe.name}
-                            icon={recipe.icon}
-                            tags={recipe.tags}
-                        />
-                    ))
+                    recipes.length > 0 && <ScrollArea className="h-[84vh] overflow-auto">
+                        {
+                            recipes.map((recipe) => (
+                                <RecipeCard
+                                    key={recipe.id}
+                                    id={recipe.id}
+                                    name={recipe.name}
+                                    icon={recipe.icon}
+                                    tags={recipe.tags}
+                                />
+                            ))
+                        }
+                    </ScrollArea>
                 }
 
             </div>
