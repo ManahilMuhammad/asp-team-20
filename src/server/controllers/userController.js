@@ -42,7 +42,7 @@ module.exports.loginUser = async (req, res) => {
     if (!isMatch) return res.status(400).json({ message: "Invalid email or password" });
 
     // Send token and user data to client to ensure data sync across devices
-    res.json({ token: generateToken(user.id), user: { id: user.id, name: user.name, email: user.email } });
+    res.json({ token: generateToken(user.id), user: { id: user.id, name: user.name, email: user.email, avatar: user.avatar } });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
