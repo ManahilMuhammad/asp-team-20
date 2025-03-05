@@ -52,7 +52,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      
+
       // Private details
       gender: {
         type: DataTypes.STRING,
@@ -71,22 +71,6 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           isInt: true,
           min: 12,      // users at least the age of 13 ?
-        },
-      },
-      height: {
-        type: DataTypes.SMALLINT,
-        allowNull: false,
-        validate: {
-          isInt: true,
-          min: 50,      // minimum height of 50cm
-        },
-      },
-      weight: {
-        type: DataTypes.SMALLINT,
-        allowNull: false,
-        validate: {
-          isInt: true,
-          min: 20,      // minimum weight of 20kg
         },
       },
       goal: {
