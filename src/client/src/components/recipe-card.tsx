@@ -30,7 +30,7 @@ const RecipeCard: React.FC<RecipeRecapData> = ({ id, name, icon = null, tags }) 
         <Tooltip>
             <TooltipTrigger asChild>
                 <Button
-                    className="w-[285px] bg-[#7BAE20] hover:bg-[#5d9200] rounded-t-xl text-white text-center text-xl font-light hover:underline pt-2 mx-auto"
+                    className="w-[285px] bg-[#7BAE20] hover:bg-[#5d9200] rounded-t-xl rounded-b-none text-white text-center text-xl font-light hover:underline pt-2 mx-auto"
                     onClick={() => navigate(`/recipes/view/${id}`)}
                 >
                     { name }
