@@ -1,6 +1,9 @@
 "use strict";
 const { Model } = require("sequelize");
 
+// Documentation on it's usage & JSON data formating
+// -> ./documentation/database_tables/recipes.md
+
 module.exports = (sequelize, DataTypes) => {
   // Define the Recipe model by extending Sequelize's Model class
   class Recipe extends Model {
@@ -23,6 +26,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
+      
       // Recipe title must be at least 3 characters long.
       title: {
         type: DataTypes.STRING,
