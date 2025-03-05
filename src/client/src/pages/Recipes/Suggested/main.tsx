@@ -1,5 +1,6 @@
 import RecipeCard, { RecipeRecapData } from "@/components/recipe-card";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
 // import useFetchApi from "@/hooks/use-fetch-api";
 import { Loader2, TriangleAlert } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -46,7 +47,9 @@ const SuggestedRecipes = () => {
     return <div className="px-4 pt-10">
         <h1 className="text-2xl font-medium text-nutrifit-tertiary text-center">Suggested Recipes</h1>
         <h5 className="text-sm font-medium text-nutrifit-tertiary text-center">The following Recipes are suggested based on the ingredients you have available and your dieteray restrictions.</h5>
-    
+        
+        <Separator className="mt-2 m-auto w-[90%] md:w-[85%]"/>
+
         <ScrollArea className="w-full">
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 max-w-[90vw] mx-auto">
 
@@ -67,7 +70,7 @@ const SuggestedRecipes = () => {
                 }
 
                 {
-                    recipes.length > 0 && <ScrollArea className="h-[84vh] overflow-auto">
+                    recipes.length > 0 && <ScrollArea className="h-[83vh] overflow-auto">
                         {
                             recipes.map((recipe) => (
                                 <RecipeCard
