@@ -1,6 +1,6 @@
-# Recipe Model Guide
+# Recipes Model Guide
 
-The `Recipe` model is the base table for storing/searching of all recipes used inside of Nutrifit, this page is present to give a human readible and understandable guide on how to use it along with details on how the data should be structured.
+The `Recipes` model is the base table for storing/searching of all recipes used inside of Nutrifit, this page is present to give a human readible and understandable guide on how to use it along with details on how the data should be structured.
 
 ## Table Name
 **Recipes**

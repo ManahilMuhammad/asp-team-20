@@ -1,4 +1,4 @@
-const { Recipe, User } = require("../models/index");
+const { Recipes, User } = require("../models/index");
 
 /**
  * Create a new recipe.
@@ -16,7 +16,7 @@ const createRecipe = async (req, res) => {
     }
 
     // Create the recipe associated with the user
-    const recipe = await Recipe.create({
+    const recipe = await Recipes.create({
       userId: req.user.id,
       title,
       ingredients,
@@ -42,7 +42,7 @@ const createRecipe = async (req, res) => {
  */
 const getRecipes = async (req, res) => {
   try {
-    const recipes = await Recipe.findAll({
+    const recipes = await Recipes.findAll({
       include: {
         model: User,
         as: "user",
@@ -61,7 +61,7 @@ const getRecipes = async (req, res) => {
  */
 const getRecipeById = async (req, res) => {
   try {
-    const recipe = await Recipe.findByPk(req.params.id, {
+    const recipe = await Recipes.findByPk(req.params.id, {
       include: {
         model: User,
         as: "user",
@@ -86,7 +86,7 @@ const getRecipeById = async (req, res) => {
  */
 const updateRecipe = async (req, res) => {
   try {
-    const recipe = await Recipe.findByPk(req.params.id);
+    const recipe = await Recipes.findByPk(req.params.id);
 
     // Check if recipe exists and if the current user is the owner
     if (!recipe) {
@@ -117,7 +117,7 @@ const updateRecipe = async (req, res) => {
  */
 const deleteRecipe = async (req, res) => {
   try {
-    const recipe = await Recipe.findByPk(req.params.id);
+    const recipe = await Recipes.findByPk(req.params.id);
 
     // Check if recipe exists and if the current user is the owner
     if (!recipe) {
