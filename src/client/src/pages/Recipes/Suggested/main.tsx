@@ -35,7 +35,9 @@ const SuggestedRecipes = () => {
 
     const [recipes, setSuggestedRecipes] = useState<RecipeRecapData[]>([]);
 
+    // const { data, loading, error } = useFetchApi<RecipeRecapData[]>("/api/recipes");
     const { data, loading, error } = { data: null, loading: false, error: 'No current API endpoint to suggest recipes\nManually set recipe suggestions in ./src/pages/Recipes/Suggested/main.tsx to test the component.' };//useFetchApi<RecipeRecapData[]>("/api/recipes");
+    // const { data, loading, error } = { data: placeholderRecipes, loading: false, error: false };
 
     useEffect(() => {
         if (data && !loading && !error) setSuggestedRecipes(data);
