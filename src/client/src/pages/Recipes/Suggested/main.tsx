@@ -50,43 +50,39 @@ const SuggestedRecipes = () => {
         
         <Separator className="mt-2 m-auto w-[90%] md:w-[85%]"/>
 
-        <ScrollArea className="w-full">
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 max-w-[90vw] mx-auto">
-
-                {
-                    loading && !error && <div className="mx-auto flex items-center gap-2">
-                        <Loader2 className="animate-spin" /> Loading Recipes
-                    </div>
-                }
-
-                {
-                    error && <div className="mx-auto">
-                        <div className="flex flex-row items-center mb-2 gap-2">
-                            <TriangleAlert className="mr-1 text-red-500" size={'2em'}/>
-                            <p>An error occured while obtaining the suggested recipes:</p>
-                        </div>
-                        <p className="text-red-500 text-center">{error}</p>
-                    </div>
-                }
-
-                {
-                    recipes.length > 0 && <ScrollArea className="h-[83vh] overflow-auto">
-                        {
-                            recipes.map((recipe) => (
-                                <RecipeCard
-                                    key={recipe.id}
-                                    id={recipe.id}
-                                    name={recipe.name}
-                                    icon={recipe.icon}
-                                    tags={recipe.tags}
-                                />
-                            ))
-                        }
-                    </ScrollArea>
-                }
-
+        {
+            loading && !error && <div className="mx-auto flex items-center gap-2">
+                <Loader2 className="animate-spin" /> Loading Recipes
             </div>
-        </ScrollArea>
+        }
+
+        {
+            error && <div className="mx-auto">
+                <div className="flex flex-row items-center mb-2 gap-2">
+                    <TriangleAlert className="mr-1 text-red-500" size={'2em'}/>
+                    <p>An error occured while obtaining the suggested recipes:</p>
+                </div>
+                <p className="text-red-500 text-center">{error}</p>
+            </div>
+        }
+
+        {
+            recipes.length > 0 && <ScrollArea className="h-[83vh] overflow-auto">
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 max-w-[90vw] mx-auto">
+                {
+                    recipes.map((recipe) => (
+                        <RecipeCard
+                            key={recipe.id}
+                            id={recipe.id}
+                            name={recipe.name}
+                            icon={recipe.icon}
+                            tags={recipe.tags}
+                        />
+                    ))
+                }
+                </div>
+            </ScrollArea>
+        }
     </div>;
 };
 
