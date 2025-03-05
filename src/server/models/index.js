@@ -51,4 +51,10 @@ db.UserBadges = require('./models/userBadges')(sequelize, Sequelize);
 db.Recipe = require('./models/recipe')(sequelize, Sequelize);
 db.FitnessMetric = require('./models/fitnessMetric')(sequelize, Sequelize);
 
+// Associate databases
+db.User.associate(db);
+db.UserBadges.associate(db);
+db.Recipe.associate(db);
+db.FitnessMetric.associate(db);
+
 module.exports = db;
