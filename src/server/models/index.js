@@ -48,6 +48,7 @@ db.Sequelize = Sequelize;
 // Table models - hard coded to work with esbuild
 db.User = require('./models/user')(sequelize, Sequelize);
 db.Recipes = require('./models/recipes')(sequelize, Sequelize);
+db.SavedRecipes = require('./models/savedRecipes')(sequelize, Sequelize);
 db.FitnessMetric = require('./models/fitnessMetric')(sequelize, Sequelize);
 
 module.exports = db;
