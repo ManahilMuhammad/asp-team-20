@@ -12,7 +12,8 @@ const verifyPasswordStrenght = (password) => {
 }
 
 module.exports.registerUser = async (req, res) => {
-  const { name, email, password, age, goal, avatar } = req.body;
+  /* To Do: remove the default values below when register system is rebuilt */
+  const { name, email, password, age = 25, goal = "None", avatar = "default" } = req.body;
 
   try {
     const userExists = await User.findOne({ where: { email } });
