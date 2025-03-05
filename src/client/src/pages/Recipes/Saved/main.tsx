@@ -14,32 +14,32 @@ const placeholderTags: {name: string; color?: string;}[] = [
 ];
 
 // Debug placeholder recipes
-// const placeholderRecipes: RecipeRecapData[] = [
-//     {
-//         id: 1,
-//         name: "Chicken Parmesan",
-//         icon: "https://www.mamaknowsglutenfree.com/wp-content/uploads/2023/06/gluten-free-chicken-parmesan-rc-1.jpg",
-//         tags: ["Keto", "Nut free"],
-//     },
-//     {
-//         id: 2,
-//         name: "Avocado Toast",
-//         icon: "https://veganhuggs.com/wp-content/uploads/2023/02/white-bean-avocado-toast.jpg",
-//         tags: ["Vegan", "Low cal"],
-//     },
-//     {
-//         id: 3,
-//         name: "Salmon Teriyaki",
-//         icon: "https://rasamalaysia.com/wp-content/uploads/2016/03/salmon-teriyaki-thumb.jpg",
-//         tags: ["Pescatarian"],
-//     },
-//     {
-//         id: 4,
-//         name: "Quinoa Salad",
-//         icon: "https://www.crowdedkitchen.com/wp-content/uploads/2022/10/Pumpkin-Quinoa-Salad-11.jpg",
-//         tags: ["Vegan"],
-//     },
-// ];
+const placeholderRecipes: RecipeRecapData[] = [
+    {
+        id: 1,
+        name: "Chicken Parmesan",
+        icon: "https://www.mamaknowsglutenfree.com/wp-content/uploads/2023/06/gluten-free-chicken-parmesan-rc-1.jpg",
+        tags: ["Keto", "Nut free"],
+    },
+    {
+        id: 2,
+        name: "Avocado Toast",
+        icon: "https://veganhuggs.com/wp-content/uploads/2023/02/white-bean-avocado-toast.jpg",
+        tags: ["Vegan", "Low cal"],
+    },
+    {
+        id: 3,
+        name: "Salmon Teriyaki",
+        icon: "https://rasamalaysia.com/wp-content/uploads/2016/03/salmon-teriyaki-thumb.jpg",
+        tags: ["Pescatarian"],
+    },
+    {
+        id: 4,
+        name: "Quinoa Salad",
+        icon: "https://www.crowdedkitchen.com/wp-content/uploads/2022/10/Pumpkin-Quinoa-Salad-11.jpg",
+        tags: ["Vegan"],
+    },
+];
 
 const SavedRecipes = () => {
 
@@ -55,7 +55,7 @@ const SavedRecipes = () => {
     */
 
     useEffect(() => {
-        setSavedRecipes([]);
+        setSavedRecipes(placeholderRecipes);
     }, []);
 
     useEffect(() => {
@@ -94,7 +94,7 @@ const SavedRecipes = () => {
             <div className="mt-8 max-h-[80vh]">
                 {
                     filteredRecipes.length > 0 ?
-                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mt-4 max-w-[90vw] mx-">{
+                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 mt-4 max-w-[90vw] pb-[2em]">{
                         filteredRecipes.map(({ id, name, icon }) => (
                             <RecipeCard key={id} id={id} name={name} icon={icon} tags={[]} />
                         )) 
