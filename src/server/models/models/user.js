@@ -25,6 +25,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       motto: {
+        type: DataTypes.STRING,
         allowNull: false,
         defaultValue: "",
         validate: {
@@ -32,6 +33,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       avatar: {
+        type: DataTypes.STRING,
         allowNull: false,
         defaultValue: "default",
         validate: {
