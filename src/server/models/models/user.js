@@ -68,7 +68,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       age: {
-        type: DataTypes.TINYINT,
+        type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
           isInt: true,
