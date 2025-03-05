@@ -34,26 +34,89 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       },
-      // Ingredients are stored as text; they cannot be empty.
-      ingredients: {
+      
+      // A short description for the recipe, basic details on the recipe to promote it
+      description: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          len: {
+            args: [3, 255],
+            msg: "Description must be between 3 and 255 characters long",
+          },
+        },
+      },
+      
+      // A short introduction for the recipe, only when the recipe is properly viewed and not in previews
+      introduction: {
         type: DataTypes.TEXT,
+        allowNull: false,
+        validate: {
+          len: {
+            args: [3, 5000],
+            msg: "Introduction must be between 3 and 5000 characters long",
+          },
+        },
+      },
+      
+      // Recipe image.
+      image: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          len: {
+            args: [10, 255],
+            msg: "Recipe image must be a valid URL no longer then 255 characters",
+          },
+        },
+      },
+      
+      // Recipe tags are stored as a json string - required input.
+      tags: {
+        type: DataTypes.JSONB,
+        allowNull: false,
+        defaultValue: [],
+        validate: {
+          isValidJSON(value) {
+            if (typeof value !== "object") {
+              throw new Error("Tags must be a valid JSON array");
+            }
+          },
+        },
+      },
+      
+      // Ingredients are stored as a json string - required input.
+      ingredients: {
+        type: DataTypes.JSONB,
         allowNull: false,
         validate: {
           notEmpty: {
             msg: "Ingredients cannot be empty",
           },
+          isValidJSON(value) {
+            if (typeof value !== "object") {
+              throw new Error("Ingredients must be a valid JSON array");
+            }
+          },
         },
       },
-      // Cooking instructions are stored as text; they cannot be empty.
+      
+      // Cooking instructions are stored as a json string - required input
       instructions: {
-        type: DataTypes.TEXT,
+        type: DataTypes.JSONB,
         allowNull: false,
         validate: {
           notEmpty: {
             msg: "Instructions cannot be empty",
           },
+          isValidJSON(value) {
+            if (typeof value !== "object") {
+              throw new Error("Instructions must be a valid JSON array");
+            }
+          },
         },
       },
+      
     },
     {
       sequelize,
