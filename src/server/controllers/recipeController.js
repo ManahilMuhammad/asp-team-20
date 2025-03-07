@@ -101,12 +101,17 @@ const getRecipeById = async (req, res) => {
  * Return an array of recipes based on a text search
  */
 const searchRecipeByTitle = async (req, res) => {
+  const { title = "" } = req.params;
+
+  // Too short queries won't be accepted, avoids overloading
+  if (title.length < 3) return res.status(200).json([]);
+
   try {
     const recipes = await Recipes.findAll({
       where: {
         // % means looking without beingg  case sensitive
         title: {
-          [Op.iLike]: `%${req.params.title}%`,
+          [Op.iLike]: `%${title}%`,
         },
       },
       attributes: {
