@@ -46,7 +46,7 @@ const getRecipes = async (req, res) => {
       include: {
         model: User,
         as: "user",
-        attributes: ["id", "name", "email"],
+        attributes: ["name"],
       },
     });
     return res.status(200).json(recipes);
@@ -65,7 +65,7 @@ const getRecipeById = async (req, res) => {
       include: {
         model: User,
         as: "user",
-        attributes: ["id", "name", "email"],
+        attributes: ["name"],
       },
     });
 
