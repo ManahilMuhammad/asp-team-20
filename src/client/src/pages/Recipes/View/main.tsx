@@ -1,7 +1,20 @@
 // import useFetchApi from "@/hooks/use-fetch-api";
+import { Separator } from "@/components/ui/separator";
 import { Loader2, TriangleAlert } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+
+interface Ingredient { 
+    name: string;
+    type: "meat"|"fish"|"vegetable"|"condiment"|"liquid"|"spice"|"herbe";
+    quantity: { amount: number; measurement: number; }
+    notes?: string;
+}
+
+interface Instruction {
+    text?: string;
+    image?: string;
+}
 
 export interface CompleteRecipe {
     id: number;
@@ -9,8 +22,8 @@ export interface CompleteRecipe {
     image: string;
     introduction: string;
     description: string;
-    ingredients: object[];
-    instructions: object[];
+    ingredients: Ingredient[];
+    instructions: Instruction[];
     createdAt: string;
     updatedAt: string;
 }
@@ -100,15 +113,34 @@ const RecipeView = () => {
                     ))}
                 </div>
 
+                <h1 className="text-3xl font-medium text-nutrifit-tertiary">Recipe</h1>
 
                 <div>
-                    <h1 className="text-xl font-medium text-nutrifit-tertiary text-left">Ingredients</h1>
-                    <p>{ JSON.stringify(data.ingredients) }</p>
+                    <h1 className="text-xl font-medium text-nutrifit-tertiary text-left mb-2">Ingredients</h1>
+                    <Separator className="mb-4" />
+                    <div className="flex flex-row flex-wrap items-center">
+                        {data.ingredients.map(({ name, type, quantity, notes }, i) => (
+                        <div key={i} className="flex flex-col p-2 w-full md:w-[50%] lg:w-[30%]">
+                            <span className="font-semibold text-lg text-primary">{name}</span>
+                            <span className="text-sm text-muted-foreground">Type: {type}</span>
+                            <span className="text-sm">Quantity: {quantity.amount} {quantity.measurement}</span>
+                            {notes && <span className="text-xs text-gray-500 italic">{notes}</span>}
+                        </div>
+                        ))}
+                    </div>
                 </div>
 
                 <div>
-                    <h1 className="text-xl font-medium text-nutrifit-tertiary text-left">Recipe</h1>
-                    <p>{ JSON.stringify(data.instructions) }</p>
+                    <h1 className="text-xl font-medium text-nutrifit-tertiary text-left mb-2">Recipe</h1>
+                    <Separator className="mb-4" />
+                    <ol className="space-y-4 list-decimal list-outside pl-6">
+                        {data.instructions.map(({ text, image }, i) => (
+                        <li key={i} className="p-2">
+                            {text && <p className="text-base text-muted-foreground">{text}</p>}
+                            {image && <img src={image} alt={`Step ${i + 1}`} className="mt-2 rounded-lg w-full md:w-[60%] lg:w-[45%] mx-auto" />}
+                        </li>
+                        ))}
+                    </ol>
                 </div>
             </div>
         }
