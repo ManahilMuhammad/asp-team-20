@@ -6,7 +6,7 @@ const db = require("./models/index");
 const { NODE_ENV, PORT } = require('./config/config');
 
 // Import the routes for recipes
-const recipeRoutes = require("./routes/recipeRoutes");
+const recipesRoutes = require("./routes/recipeRoutes");
 // Import routes for fitness metrics.
 const fitnessMetricRoutes = require("./routes/fitnessMetricRoutes");
 const authRoutes = require('./routes/auth');
@@ -30,8 +30,8 @@ app.use(express.json());
 // User routes
 app.use("/api/users", require("./routes/user.routes"));
 
-// Recipe routes
-app.use("/api/recipes", recipeRoutes);
+// Recipes routes
+app.use("/api/recipes", recipesRoutes);
 // Fitness Metric API routes.
 app.use("/api/fitness-metrics", fitnessMetricRoutes);
 
