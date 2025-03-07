@@ -92,7 +92,7 @@ const RecipeView = () => {
                 <div>
                     <h1 className="text-xl font-medium text-nutrifit-tertiary text-left mb-2">Ingredients</h1>
                     <Separator className="mb-4" />
-                    <div className="flex flex-row flex-wrap items-center">
+                    <div className="flex flex-row flex-wrap justify-center">
                         {data.ingredients.map(({ name, type, quantity, notes }, i) => (
                         <div key={i} className="flex flex-col p-2 w-full md:w-[50%] lg:w-[30%]">
                             <span className="font-semibold text-lg text-primary">{name}</span>
