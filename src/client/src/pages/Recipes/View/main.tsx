@@ -22,7 +22,7 @@ const RecipeView = () => {
             setError(null);
 
             try {
-                const response = await fetch(`/api/recipes/${id}`);
+                const response = await fetch(`/api/recipes/recipe/${id}`);
 
                 if (!response.ok) {
                     throw new Error(`Error ${response.status}: ${response.statusText}`);
