@@ -6,10 +6,10 @@ const CreateRecipe = () => {
         <div className="flex flex-col items-center gap-8 mt-16">
             <div className="flex flex-col lg:flex-row items-center gap-8">
                 <img src="/nutrifit-logo.svg" className="rounded-[25%]" alt="Nutrifit Logo" />
-                <h1 className="text-4xl md:text-6xl text-primary">Under Construction</h1>
+                <h1 className="text-4xl md:text-6xl text-nutrifit-tertiary">Under Construction</h1>
             </div>
 
-            <Card className="max-w-[80vw] md:max-w-[60vw] lg:max-w-[50vw]">
+            <Card className="max-w-[80vw] md:max-w-[60vw] lg:max-w-[50vw] border-nutrifit-tertiary">
                 <CardHeader>
                     <CardTitle>Recipe Creation</CardTitle>
                 </CardHeader>
