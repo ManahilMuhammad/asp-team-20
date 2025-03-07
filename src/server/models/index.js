@@ -1,11 +1,8 @@
 'use strict';
 
-const fs = require('fs');
-const path = require('path');
 const Sequelize = require('sequelize');
 const process = require('process');
 const { NODE_ENV } = require('../config/config');
-const basename = path.basename(__filename);
 const db = {};
 
 require('dotenv').config();
@@ -21,34 +18,20 @@ const sequelize = new Sequelize({
   logging: NODE_ENV === 'test',
 });
 
-fs
-  .readdirSync(__dirname)
-  .filter(file => {
-    return (
-      file.indexOf('.') !== 0 &&
-      file !== basename &&
-      file.slice(-3) === '.js' &&
-      file.indexOf('.test.js') === -1
-    );
-  })
-  .forEach(file => {
-    const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
-    db[model.name] = model;
-  });
-
-Object.keys(db).forEach(modelName => {
-  if (db[modelName].associate) {
-    db[modelName].associate(db);
-  }
-});
-
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 // Table models - hard coded to work with esbuild
 db.User = require('./models/user')(sequelize, Sequelize);
+db.UserBadges = require('./models/userBadges')(sequelize, Sequelize);
 db.Recipes = require('./models/recipes')(sequelize, Sequelize);
 db.SavedRecipes = require('./models/savedRecipes')(sequelize, Sequelize);
 db.FitnessMetric = require('./models/fitnessMetric')(sequelize, Sequelize);
+
+// Associate databases
+db.User.associate(db);
+db.UserBadges.associate(db);
+db.Recipe.associate(db);
+db.FitnessMetric.associate(db);
 
 module.exports = db;
