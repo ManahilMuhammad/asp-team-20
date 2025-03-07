@@ -8,6 +8,7 @@ const {
   getRecipeById,
   updateRecipe,
   deleteRecipe,
+  searchRecipeByTitle,
 } = require("../controllers/recipeController");
 
 // Import an authentication middleware
@@ -27,5 +28,8 @@ router.put("/:id", protect, updateRecipe);
 
 // Route to delete a recipe (requires authentication)
 router.delete("/:id", protect, deleteRecipe);
+
+// Route to search for recipes
+router.get("/search/:title", searchRecipeByTitle);
 
 module.exports = router;
