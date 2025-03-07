@@ -4,27 +4,51 @@ import { ArrowRight, Loader2, Search } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+interface SearchedRecipe {
+    id: number;
+    title: string;
+    image: string;
+    tags: { label: string; colour: string; }[]
+};
+
+const recipeBackgroundColors: string[] = [
+    "#FD8E17",
+    "#129B94",
+    "#DF3434",
+    "#FD8E17",
+];
+
 const SearchRecipes = () => {
     const navigate = useNavigate();
 
     const [searchValue, setSearchValue] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
-    const [results, setResults] = useState<{id: number; name: string; color?: string; icon?: string;}[]>([]);
+    const [results, setResults] = useState<SearchedRecipe[]>([]);
+
+    /* 
+        To Do:
+        - too short query text
+        - error display when searching
+        - no results message
+    */
 
     const handleSearch = async () => {
         console.log('Handle Search pressed current laoding state:', loading, "searching for:", searchValue);
         setLoading(!loading);
-        setResults([
-            { id: 1, name: "Chicken Parmesan", color: "#e03434", icon: undefined },
-            { id: 1, name: "Chicken Parmesan", color: "#ff8c14", icon: undefined }
-        ]);
 
-        /* 
-        
-            To Do:
-            - implement fetch method to get recipes from bakcend
+        try {
+            const response = await fetch(`/api/recipes/search/${encodeURI(searchValue)}`);
 
-        */
+            if (!response.ok) return setResults([]);
+
+            const data = await response.json() as SearchedRecipe[];
+
+            if (data) setResults(data);
+
+            setLoading(false);
+        } catch (err: any) { // eslint-disable-line
+            console.error('Unable to search for recipe:', searchValue, err);
+        }
     }
 
     return (
@@ -52,17 +76,17 @@ const SearchRecipes = () => {
 
             <div className="mt-[2em] flex flex-row gap-2 lg:gap-6 flex-wrap">{/* Search Results */}
                 {
-                    results.map(({ id, icon = "https://placehold.co/50", name, color = "#9494d8" }, i) => (
+                    results.map(({ id, image = "https://placehold.co/50", title }, i) => (
                         <Button
                             key={i}
                             className={
                                 `rounded-full flex items-center px-4 py-2 space-x-2 sm:mx-auto w-full md:w-[80%] lg:w-[45%]`
                             }
-                            style={{ backgroundColor: color }}
+                            style={{ backgroundColor: recipeBackgroundColors[i % recipeBackgroundColors.length] }}
                             onClick={() => navigate(`/recipes/view/${id}`)}
                         >
-                            <img src={icon} className="w-8 h-8 rounded-full" alt="result icon" />
-                            <p className="flex-grow text-center">{name} - {color}</p>
+                            <img src={image} className="w-8 h-8 rounded-full" alt="result icon" />
+                            <p className="flex-grow text-center">{title}</p>
                             <ArrowRight className="text-white w-5 h-5" />
                         </Button>
                     ))
