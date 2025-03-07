@@ -1,4 +1,4 @@
-const { Recipes, User } = require("../models/index");
+const { Recipes, User, SavedRecipes } = require("../models/index");
 const { Op } = require("sequelize")
 
 /**
@@ -62,13 +62,29 @@ const getRecipes = async (req, res) => {
  */
 const getRecipeById = async (req, res) => {
   try {
-    const recipe = await Recipes.findByPk(req.params.id, {
-      include: {
-        model: User,
-        as: "user",
-        attributes: ["name"],
-      },
-    });
+
+    // @Brightiya Why the include user section ? Is it to only allow searching for recipes owned by the user
+    // It currently throws errors when querying the DB
+    // Issue is only present when querying from the frontend (src/pages/Recipes/View/main.tsx) using the fetch-api hook
+
+    /* 
+      Error fetching recipe: EagerLoadingError [SequelizeEagerLoadingError]: User is not associated to Recipe!
+        at Recipe._getIncludedAssociation (asp-team-20\src\server\node_modules\sequelize\lib\model.js:565:13)
+        at Recipe._validateIncludedElement (asp-team-20\src\server\node_modules\sequelize\lib\model.js:502:53)
+        at asp-team-20\src\server\node_modules\sequelize\lib\model.js:421:37
+        at Array.map (<anonymous>)
+        at Recipe._validateIncludedElements (asp-team-20\src\server\node_modules\sequelize\lib\model.js:417:39)
+    */
+
+    // const recipe = await Recipe.findByPk(req.params.id, {
+    //   include: {
+    //     model: User,
+    //     as: "user",
+    //     attributes: ["id", "name", "email"],
+    //   },
+    // });
+
+    const recipe = await Recipes.findByPk(req.params.id);
 
     if (!recipe) {
       return res.status(404).json({ message: "Recipe not found" });
@@ -76,8 +92,52 @@ const getRecipeById = async (req, res) => {
 
     return res.status(200).json(recipe);
   } catch (error) {
-    console.error("Error fetching recipe:", error);
+    console.error("Error fetching recipe by ID:", error);
     return res.status(500).json({ message: "Server error while retrieving the recipe" });
+  }
+};
+
+/**
+ * Return an array of saved recipes by a user
+ */
+const getSavedRecipes = async (req, res) => {
+  // const { page = 1 } = req.body;
+  const userId = req.user.id;
+
+  // Used for paging
+  // const limit = 50;
+  // const offset = (page - 1) * limit;
+
+  try {
+    const savedRecipeIds = await SavedRecipes.findAll({
+      where: { userId },
+      attributes: ["recipeId"], // only the recipeIds from the table
+    });
+    
+    // Clean up the array for the next query
+    const recipeIds = savedRecipeIds.map((item) => item.recipeId); 
+
+    if (recipeIds.length === 0) {
+      return res.status(200).json([]); // Not an error, just no recipes therefore no point in continuing
+    }
+
+    const recipes = await Recipes.findAll({
+      where: {
+        id: recipeIds, // Find recipes matching the saved recipe IDs
+      },
+      attributes: ["id", "title", "tags", "image"],
+      limit: 100,
+      // offset, // used for paging
+    });
+
+    if (!recipes) {
+      return res.status(404).json({ message: "No saved recipes" });
+    }
+
+    return res.status(200).json(recipes);
+  } catch (error) {
+    console.error("Error fetching saved recipes:", error.message);
+    return res.status(500).json({ message: "Server error while searching for recipes" });
   }
 };
 
@@ -85,12 +145,17 @@ const getRecipeById = async (req, res) => {
  * Return an array of recipes based on a text search
  */
 const searchRecipeByTitle = async (req, res) => {
+  const { title = "" } = req.params;
+
+  // Too short queries won't be accepted, avoids overloading
+  if (title.length < 3) return res.status(200).json([]);
+
   try {
     const recipes = await Recipes.findAll({
       where: {
         // % means looking without beingg  case sensitive
         title: {
-          [Op.iLike]: `%${req.params.title}%`,
+          [Op.iLike]: `%${title}%`,
         },
       },
       attributes: {
@@ -113,7 +178,7 @@ const searchRecipeByTitle = async (req, res) => {
 
     return res.status(200).json(recipes);
   } catch (error) {
-    console.error("Error fetching recipe:", error);
+    console.error("Error searching for recipe:", error);
     return res.status(500).json({ message: "Server error while searching for recipes" });
   }
 };
@@ -181,4 +246,5 @@ module.exports = {
   searchRecipeByTitle,
   updateRecipe,
   deleteRecipe,
+  getSavedRecipes,
 };
