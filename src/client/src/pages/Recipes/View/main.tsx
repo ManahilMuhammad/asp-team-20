@@ -5,12 +5,14 @@ import { useParams } from "react-router-dom";
 
 export interface CompleteRecipe {
     id: number;
-    userId: number;
     title: string;
-    ingredients: string;
-    instructions: string;
-    createdAt: number;
-    updatedAt: number;
+    image: string;
+    introduction: string;
+    description: string;
+    ingredients: object[];
+    instructions: object[];
+    createdAt: string;
+    updatedAt: string;
 }
 
 const RecipeView = () => {
@@ -24,6 +26,8 @@ const RecipeView = () => {
         const fetchRecipe = async () => {
             if (!id) return;
 
+            if (data) return; // Avoid multiple calls if recipe is already loaded
+
             setLoading(true);
             setError(null);
 
@@ -35,6 +39,7 @@ const RecipeView = () => {
                 }
 
                 const json = await response.json();
+
                 setData(json);
             } catch (err) {
                 setError((err as Error).message);
@@ -44,7 +49,7 @@ const RecipeView = () => {
         };
 
         fetchRecipe();
-    }, [id]);
+    }, [id, data]);
 
     // For some reason it breaks, as the options param is always regenerated
     // const { data, loading, error } = useFetchApi<CompleteRecipe>(`/api/recipes/${id}`, {method: 'GET'}, false);
@@ -70,13 +75,15 @@ const RecipeView = () => {
         {
             data && !loading && <div className="py-12 px-8 flex flex-col gap-6">
                 <img
-                    src={/* data.icon || */ "https://placehold.co/400"}
+                    src={ data.image || "/nutrifit-logo.svg"}
                     alt={`An image of ${data.title}`}
                     className="w-[300px] rounded-2xl mx-auto shadow-lg shadow-gray-500"
                 />
 
                 <h1 className="text-2xl font-medium text-nutrifit-tertiary text-center">{data.title}</h1>
-                {/* <h5 className="text-sm font-medium text-nutrifit-tertiary text-center">{data.description}</h5> */}
+                <h5 className="text-sm font-medium text-nutrifit-tertiary text-center">{data.description}</h5>
+
+                <p className="text-primary text-center">{data.introduction}</p>
 
                 <div className="flex flex-row justify-around">
                     {[
@@ -96,12 +103,12 @@ const RecipeView = () => {
 
                 <div>
                     <h1 className="text-xl font-medium text-nutrifit-tertiary text-left">Ingredients</h1>
-                    <p>{ data.ingredients }</p>
+                    <p>{ JSON.stringify(data.ingredients) }</p>
                 </div>
 
                 <div>
                     <h1 className="text-xl font-medium text-nutrifit-tertiary text-left">Recipe</h1>
-                    <p>{ data.instructions }</p>
+                    <p>{ JSON.stringify(data.instructions) }</p>
                 </div>
             </div>
         }
