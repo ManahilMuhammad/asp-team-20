@@ -1,4 +1,4 @@
-const { Recipes, User } = require("../models/index");
+const { Recipes, User, SavedRecipes } = require("../models/index");
 const { Op } = require("sequelize")
 
 /**
@@ -92,8 +92,52 @@ const getRecipeById = async (req, res) => {
 
     return res.status(200).json(recipe);
   } catch (error) {
-    console.error("Error fetching recipe:", error);
+    console.error("Error fetching recipe by ID:", error);
     return res.status(500).json({ message: "Server error while retrieving the recipe" });
+  }
+};
+
+/**
+ * Return an array of saved recipes by a user
+ */
+const getSavedRecipes = async (req, res) => {
+  // const { page = 1 } = req.body;
+  const userId = req.user.id;
+
+  // Used for paging
+  // const limit = 50;
+  // const offset = (page - 1) * limit;
+
+  try {
+    const savedRecipeIds = await SavedRecipes.findAll({
+      where: { userId },
+      attributes: ["recipeId"], // only the recipeIds from the table
+    });
+    
+    // Clean up the array for the next query
+    const recipeIds = savedRecipeIds.map((item) => item.recipeId); 
+
+    if (recipeIds.length === 0) {
+      return res.status(200).json([]); // Not an error, just no recipes therefore no point in continuing
+    }
+
+    const recipes = await Recipes.findAll({
+      where: {
+        id: recipeIds, // Find recipes matching the saved recipe IDs
+      },
+      attributes: ["id", "title", "tags", "image"],
+      limit: 100,
+      // offset, // used for paging
+    });
+
+    if (!recipes) {
+      return res.status(404).json({ message: "No saved recipes" });
+    }
+
+    return res.status(200).json(recipes);
+  } catch (error) {
+    console.error("Error fetching saved recipes:", error.message);
+    return res.status(500).json({ message: "Server error while searching for recipes" });
   }
 };
 
@@ -134,7 +178,7 @@ const searchRecipeByTitle = async (req, res) => {
 
     return res.status(200).json(recipes);
   } catch (error) {
-    console.error("Error fetching recipe:", error);
+    console.error("Error searching for recipe:", error);
     return res.status(500).json({ message: "Server error while searching for recipes" });
   }
 };
@@ -202,4 +246,5 @@ module.exports = {
   searchRecipeByTitle,
   updateRecipe,
   deleteRecipe,
+  getSavedRecipes,
 };
