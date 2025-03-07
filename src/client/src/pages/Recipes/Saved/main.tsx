@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { RecipeTags, RecipeRecap } from "../types";
 
 // Debug placeholders
+// To be replaced 
 const placeholderTags: RecipeTags[] = [
     { label: "All", colour: "#7bae20" },
     { label: "Keto", colour: "#d13434" },
@@ -15,49 +16,39 @@ const placeholderTags: RecipeTags[] = [
     { label: "Pescatarian", colour: "#fd8e17" },
 ];
 
-// Debug placeholder recipes
-// const placeholderRecipes: RecipeRecap[] = [
-//     {
-//         id: 1,
-//         name: "Chicken Parmesan",
-//         icon: "https://www.mamaknowsglutenfree.com/wp-content/uploads/2023/06/gluten-free-chicken-parmesan-rc-1.jpg",
-//         tags: ["Keto", "Nut free"],
-//     },
-//     {
-//         id: 2,
-//         name: "Avocado Toast",
-//         icon: "https://veganhuggs.com/wp-content/uploads/2023/02/white-bean-avocado-toast.jpg",
-//         tags: ["Vegan", "Low cal"],
-//     },
-//     {
-//         id: 3,
-//         name: "Salmon Teriyaki",
-//         icon: "https://rasamalaysia.com/wp-content/uploads/2016/03/salmon-teriyaki-thumb.jpg",
-//         tags: ["Pescatarian"],
-//     },
-//     {
-//         id: 4,
-//         name: "Quinoa Salad",
-//         icon: "https://www.crowdedkitchen.com/wp-content/uploads/2022/10/Pumpkin-Quinoa-Salad-11.jpg",
-//         tags: ["Vegan"],
-//     },
-// ];
-
 const SavedRecipes = () => {
+
+    const [loading, setLoading] = useState<boolean>(false);
 
     const [selectedTag, setSelectedTag] = useState<string>('All');
     const [savedRecipes, setSavedRecipes] = useState<RecipeRecap[]>([]);
     const [filteredRecipes, setFilteredRecipes] = useState<RecipeRecap[]>([]);
 
-    /* 
-    
-        ToDo:
-        - Create a fetch request to obtain the users saved recipes from the server 
-
-    */
-
     useEffect(() => {
-        setSavedRecipes([]);
+        const retrieveSavedRecipes = async () => {
+            setLoading(true);
+    
+            try {
+                const token = localStorage.getItem("nutrifit-token");
+                const response = await fetch(`/api/recipes/saved`, {
+                    method: 'GET',
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+    
+                if (!response.ok) return setSavedRecipes([]);
+    
+                const data = await response.json() as RecipeRecap[];
+    
+                if (data) setSavedRecipes(data);
+    
+                setLoading(false);
+            } catch (err: any) { // eslint-disable-line
+                console.error('Unable to retrieve saved recipes:', err);
+            }
+        }
+        retrieveSavedRecipes();
     }, []);
 
     useEffect(() => {
@@ -74,8 +65,9 @@ const SavedRecipes = () => {
 
             <div className="border-b-[1.5px] border-teal-600 flex flex-row gap-4 justify-center mt-1">
                 {
-                    placeholderTags.map(({label, colour}) => (
+                    placeholderTags.map(({label, colour}, index) => (
                         <Button
+                            key={index}
                             className={`rounded-t-md rounded-b-none p-2 ${selectedTag === label ? "h-8 mt-0" : "h-6 mt-2"} transition-discrete`}
                             style={{ backgroundColor: (colour || "#7bae20") }}
                             onClick={() => setSelectedTag(selectedTag === label ? 'All' : label)}
@@ -106,7 +98,11 @@ const SavedRecipes = () => {
 
                     <div className="flex items-center justify-center gap-2 py-2">
                         <Info className=" animate-bounce" />
-                        <p>No saved Recipes</p>
+                        {
+                            loading ? 
+                            <p>No saved Recipes</p> :
+                            <p>Retrieving saved Recipes</p>
+                        }
                     </div>
                 }
                 
