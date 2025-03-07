@@ -84,7 +84,7 @@ const getRecipeById = async (req, res) => {
     //   },
     // });
 
-    const recipe = await Recipe.findByPk(req.params.id);
+    const recipe = await Recipes.findByPk(req.params.id);
 
     if (!recipe) {
       return res.status(404).json({ message: "Recipe not found" });
