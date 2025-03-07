@@ -3,37 +3,14 @@ import { Separator } from "@/components/ui/separator";
 import { Loader2, TriangleAlert } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-
-interface Ingredient { 
-    name: string;
-    type: "meat"|"fish"|"vegetable"|"condiment"|"liquid"|"spice"|"herbe";
-    quantity: { amount: number; measurement: number; }
-    notes?: string;
-}
-
-interface Instruction {
-    text?: string;
-    image?: string;
-}
-
-export interface CompleteRecipe {
-    id: number;
-    title: string;
-    image: string;
-    introduction: string;
-    description: string;
-    ingredients: Ingredient[];
-    instructions: Instruction[];
-    createdAt: string;
-    updatedAt: string;
-}
+import { CompleteRecipe } from "../types";
 
 const RecipeView = () => {
     const { id } = useParams<{ id: string }>();
 
     const [loading, setLoading] = useState<boolean>(true);
-    const [error, setError] = useState<string|null>(null);
-    const [data, setData] = useState<CompleteRecipe|null>(null);
+    const [error, setError] = useState<string | null>(null);
+    const [data, setData] = useState<CompleteRecipe | null>(null);
 
     useEffect(() => {
         const fetchRecipe = async () => {

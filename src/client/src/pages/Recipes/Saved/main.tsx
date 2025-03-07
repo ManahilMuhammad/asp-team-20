@@ -1,21 +1,22 @@
 /* Attention to the parent folder, calling it "Search" somehow breaks it */
 
-import RecipeCard, { RecipeRecapData } from "@/components/recipe-card";
+import RecipeCard from "@/components/recipe-card";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Info } from "lucide-react";
 import { useEffect, useState } from "react";
+import { RecipeTags, RecipeRecap } from "../types";
 
 // Debug placeholders
-const placeholderTags: {name: string; color?: string;}[] = [
-    { name: "All", color: "#7bae20" },
-    { name: "Keto", color: "#d13434" },
-    { name: "Vegan", color: "#1f9391" },
-    { name: "Pescatarian", color: "#fd8e17" },
+const placeholderTags: RecipeTags[] = [
+    { label: "All", colour: "#7bae20" },
+    { label: "Keto", colour: "#d13434" },
+    { label: "Vegan", colour: "#1f9391" },
+    { label: "Pescatarian", colour: "#fd8e17" },
 ];
 
 // Debug placeholder recipes
-// const placeholderRecipes: RecipeRecapData[] = [
+// const placeholderRecipes: RecipeRecap[] = [
 //     {
 //         id: 1,
 //         name: "Chicken Parmesan",
@@ -45,8 +46,8 @@ const placeholderTags: {name: string; color?: string;}[] = [
 const SavedRecipes = () => {
 
     const [selectedTag, setSelectedTag] = useState<string>('All');
-    const [savedRecipes, setSavedRecipes] = useState<RecipeRecapData[]>([]);
-    const [filteredRecipes, setFilteredRecipes] = useState<RecipeRecapData[]>([]);
+    const [savedRecipes, setSavedRecipes] = useState<RecipeRecap[]>([]);
+    const [filteredRecipes, setFilteredRecipes] = useState<RecipeRecap[]>([]);
 
     /* 
     
@@ -62,7 +63,7 @@ const SavedRecipes = () => {
     useEffect(() => {
         setFilteredRecipes(
             savedRecipes.filter(
-                (recipe) => selectedTag === "All" || (recipe.tags && recipe.tags.includes(selectedTag))
+                (recipe) => selectedTag === "All" || (recipe.tags && recipe.tags.map((e => e.label)).includes(selectedTag))
             )
         );
     }, [savedRecipes, selectedTag]);
@@ -73,13 +74,13 @@ const SavedRecipes = () => {
 
             <div className="border-b-[1.5px] border-teal-600 flex flex-row gap-4 justify-center mt-1">
                 {
-                    placeholderTags.map(({name, color}) => (
+                    placeholderTags.map(({label, colour}) => (
                         <Button
-                            className={`rounded-t-md rounded-b-none p-2 ${selectedTag === name ? "h-8 mt-0" : "h-6 mt-2"} transition-discrete`}
-                            style={{ backgroundColor: (color || "#7bae20") }}
-                            onClick={() => setSelectedTag(selectedTag === name ? 'All' : name)}
+                            className={`rounded-t-md rounded-b-none p-2 ${selectedTag === label ? "h-8 mt-0" : "h-6 mt-2"} transition-discrete`}
+                            style={{ backgroundColor: (colour || "#7bae20") }}
+                            onClick={() => setSelectedTag(selectedTag === label ? 'All' : label)}
                         >
-                            { name }
+                            { label }
                         </Button>
                     ))
                 }
@@ -97,8 +98,8 @@ const SavedRecipes = () => {
                     filteredRecipes.length > 0 ?
                     <ScrollArea className="max-h-[84vh] overflow-auto scrollbar-thin">
                         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 mt-4 max-w-[90vw] pb-[2em]">{
-                            filteredRecipes.map(({ id, name, icon }) => (
-                                <RecipeCard key={id} id={id} name={name} icon={icon} />
+                            filteredRecipes.map(({ id, title, image }) => (
+                                <RecipeCard key={id} id={id} title={title} image={image} tags={[]} />
                             )) 
                         }</div>
                     </ScrollArea> :

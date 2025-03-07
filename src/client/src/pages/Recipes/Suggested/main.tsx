@@ -1,11 +1,12 @@
-import RecipeCard, { RecipeRecapData } from "@/components/recipe-card";
+import RecipeCard from "@/components/recipe-card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 // import useFetchApi from "@/hooks/use-fetch-api";
 import { Loader2, TriangleAlert } from "lucide-react";
 import { useEffect, useState } from "react";
+import { RecipeRecap } from "../types";
 
-// const placeholderRecipes: RecipeRecapData[] = [
+// const placeholderRecipes: RecipeRecap[] = [
 //     {
 //         id: 1,
 //         name: "Chicken Parmesan",
@@ -34,7 +35,7 @@ import { useEffect, useState } from "react";
 
 const SuggestedRecipes = () => {
 
-    const [recipes, setSuggestedRecipes] = useState<RecipeRecapData[]>([]);
+    const [recipes, setSuggestedRecipes] = useState<RecipeRecap[]>([]);
 
     // const { data, loading, error } = useFetchApi<RecipeRecapData[]>("/api/recipes");
     const { data, loading, error } = { data: null, loading: false, error: 'No current API endpoint to suggest recipes\nManually set recipe suggestions in ./src/pages/Recipes/Suggested/main.tsx to test the component.' };//useFetchApi<RecipeRecapData[]>("/api/recipes");
@@ -74,8 +75,8 @@ const SuggestedRecipes = () => {
                         <RecipeCard
                             key={recipe.id}
                             id={recipe.id}
-                            name={recipe.name}
-                            icon={recipe.icon}
+                            title={recipe.title}
+                            image={recipe.image}
                             tags={recipe.tags}
                         />
                     ))

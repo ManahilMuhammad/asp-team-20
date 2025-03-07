@@ -3,13 +3,7 @@ import { Input } from "@/components/ui/input";
 import { ArrowRight, Loader2, Search } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-interface SearchedRecipe {
-    id: number;
-    title: string;
-    image: string;
-    tags: { label: string; colour: string; }[]
-};
+import { RecipeRecap } from "../types";
 
 const recipeBackgroundColors: string[] = [
     "#FD8E17",
@@ -23,7 +17,7 @@ const SearchRecipes = () => {
 
     const [searchValue, setSearchValue] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
-    const [results, setResults] = useState<SearchedRecipe[]>([]);
+    const [results, setResults] = useState<RecipeRecap[]>([]);
 
     /* 
         To Do:
@@ -41,7 +35,7 @@ const SearchRecipes = () => {
 
             if (!response.ok) return setResults([]);
 
-            const data = await response.json() as SearchedRecipe[];
+            const data = await response.json() as RecipeRecap[];
 
             if (data) setResults(data);
 
