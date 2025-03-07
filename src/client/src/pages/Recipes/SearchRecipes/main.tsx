@@ -27,7 +27,6 @@ const SearchRecipes = () => {
     */
 
     const handleSearch = async () => {
-        console.log('Handle Search pressed current laoding state:', loading, "searching for:", searchValue);
         setLoading(!loading);
 
         try {
