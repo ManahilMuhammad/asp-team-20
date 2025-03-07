@@ -92,7 +92,19 @@ const searchRecipeByTitle = async (req, res) => {
         title: {
           [Op.iLike]: `%${req.params.title}%`,
         },
-      }
+      },
+      attributes: {
+        exclude: [
+          'userId', 
+          'ingredients', 
+          'instructions', 
+          'introduction', 
+          'description', 
+          'createdAt', 
+          'updatedAt'
+        ],
+      },
+      limit: 50,
     });
 
     if (!recipes) {
