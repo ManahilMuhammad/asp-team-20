@@ -1,4 +1,5 @@
 const { Recipes, User } = require("../models/index");
+const { Op } = require("sequelize")
 
 /**
  * Create a new recipe.
@@ -81,6 +82,31 @@ const getRecipeById = async (req, res) => {
 };
 
 /**
+ * Return an array of recipes based on a text search
+ */
+const searchRecipeByTitle = async (req, res) => {
+  try {
+    const recipes = await Recipes.findAll({
+      where: {
+        // % means looking without beingg  case sensitive
+        title: {
+          [Op.iLike]: `%${req.params.title}%`,
+        },
+      }
+    });
+
+    if (!recipes) {
+      return res.status(404).json({ message: "No found recipes" });
+    }
+
+    return res.status(200).json(recipes);
+  } catch (error) {
+    console.error("Error fetching recipe:", error);
+    return res.status(500).json({ message: "Server error while searching for recipes" });
+  }
+};
+
+/**
  * Update a recipe.
  * Only the user who created the recipe is allowed to update it.
  */
@@ -140,6 +166,7 @@ module.exports = {
   createRecipe,
   getRecipes,
   getRecipeById,
+  searchRecipeByTitle,
   updateRecipe,
   deleteRecipe,
 };
