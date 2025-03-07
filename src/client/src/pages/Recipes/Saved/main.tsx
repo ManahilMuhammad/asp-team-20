@@ -7,18 +7,13 @@ import { Info } from "lucide-react";
 import { useEffect, useState } from "react";
 import { RecipeTags, RecipeRecap } from "../types";
 
-// Debug placeholders
-// To be replaced 
-const placeholderTags: RecipeTags[] = [
-    { label: "All", colour: "#7bae20" },
-    { label: "Keto", colour: "#d13434" },
-    { label: "Vegan", colour: "#1f9391" },
-    { label: "Pescatarian", colour: "#fd8e17" },
-];
+const baseTag: RecipeTags = { label: "All", colour: "#7bae20" };
 
 const SavedRecipes = () => {
 
     const [loading, setLoading] = useState<boolean>(false);
+
+    const [tags, setTags] = useState<RecipeTags[]>([baseTag])
 
     const [selectedTag, setSelectedTag] = useState<string>('All');
     const [savedRecipes, setSavedRecipes] = useState<RecipeRecap[]>([]);
@@ -42,6 +37,11 @@ const SavedRecipes = () => {
                 const data = await response.json() as RecipeRecap[];
     
                 if (data) setSavedRecipes(data);
+
+                setTags([
+                    baseTag,
+                    ...data.flatMap(recipe => recipe.tags)
+                ]);
     
                 setLoading(false);
             } catch (err: any) { // eslint-disable-line
@@ -65,7 +65,7 @@ const SavedRecipes = () => {
 
             <div className="border-b-[1.5px] border-teal-600 flex flex-row gap-4 justify-center mt-1">
                 {
-                    placeholderTags.map(({label, colour}, index) => (
+                    tags.map(({label, colour}, index) => (
                         <Button
                             key={index}
                             className={`rounded-t-md rounded-b-none p-2 ${selectedTag === label ? "h-8 mt-0" : "h-6 mt-2"} transition-discrete`}
