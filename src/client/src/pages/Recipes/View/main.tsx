@@ -76,14 +76,11 @@ const RecipeView = () => {
                 <p className="text-primary text-center">{data.introduction}</p>
 
                 <div className="flex flex-row justify-around">
-                    {[
-                        { label: "361 cal", color: "yellow" }, 
-                        { label: "nut free", color: "red" }
-                    ].map(({ color, label }, i) => (
+                    {data.tags.map(({ colour, label }, i) => (
                         <div className="flex flex-col items-center" key={i}>
                             <div 
                                 className="w-10 h-10 rounded-full shadow-md" 
-                                style={{ backgroundColor: color }} 
+                                style={{ backgroundColor: colour }} 
                             />
                             <p className="mt-2 text-center">{label}</p>
                         </div>
