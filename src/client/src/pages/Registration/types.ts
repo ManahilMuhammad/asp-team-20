@@ -9,6 +9,6 @@ export interface RegistrationDetails extends User {
 
 export interface RegistrationSubPageProps {
     nextPage: () => void;
-    details?: RegistrationDetails;
-    updateDetails?: (data: RegistrationDetails) => void;
+    details?: Partial<RegistrationDetails>;
+    updateDetails?: (data: Partial<RegistrationDetails>) => void;
 }
