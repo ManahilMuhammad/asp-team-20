@@ -1,15 +1,32 @@
 import { Button } from "@/components/ui/button";
 import { RegistrationSubPageProps } from "../types";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { Carousel, type CarouselApi, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { useEffect, useState } from "react";
 
-/* 
+const RegistrationAvatarSelection: React.FC<RegistrationSubPageProps> = ({ nextPage, updateDetails }) => {
 
-    To Do:
-    - Use Carousel API to handle change and update details object
+    // Credit to ShadCN documentation
+    // https://ui.shadcn.com/docs/components/carousel
+    const [api, setApi] = useState<CarouselApi>();
+    const [current, setCurrent] = useState<number>(0);
+    const [count, setCount] = useState<number>(0);
 
-*/
+    useEffect(() => {
+        if (!api) return;
 
-const RegistrationAvatarSelection: React.FC<RegistrationSubPageProps> = ({ nextPage }) => {
+        setCount(api.scrollSnapList().length)
+        setCurrent(api.selectedScrollSnap() + 1)
+    
+        api.on("select", () => {
+            setCurrent(api.selectedScrollSnap() + 1)
+        })
+    }, [api]);
+
+    const handlePageChange = () => {
+        nextPage();
+        if (updateDetails) updateDetails({ avatar: `avatar-${current}.svg`});
+    }
+
     return <div className="text-center space-y-6">
         <p
             className="text-nutrifit-tertiary"
@@ -20,7 +37,7 @@ const RegistrationAvatarSelection: React.FC<RegistrationSubPageProps> = ({ nextP
             </span>
         </p>
 
-        <Carousel className="w-full max-w-xs">
+        <Carousel setApi={setApi} className="w-full max-w-xs">
             <CarouselContent>
                 {Array.from({ length: 14 }).map((_, index) => (
                     <CarouselItem key={index}>
@@ -30,7 +47,6 @@ const RegistrationAvatarSelection: React.FC<RegistrationSubPageProps> = ({ nextP
                                 alt={`Avatar n° ${index + 1}`}
                                 className="mx-auto rounded-full mb-2"
                             />
-                            <span>Avatar {index + 1}</span>
                         </div>
                     </CarouselItem>
                 ))}
@@ -38,12 +54,18 @@ const RegistrationAvatarSelection: React.FC<RegistrationSubPageProps> = ({ nextP
             <CarouselPrevious />
             <CarouselNext />
         </Carousel>
+
+        <p
+            className="text-nutrifit-tertiary"
+        >
+            Avatar {current}/{count}
+        </p>
         
         <Button
-            onClick={nextPage}
+            onClick={handlePageChange}
             className="text-nutrifit-tertiary text-lg font-normal bg-transparent hover:bg-transparent hover:underline mt-6"
         >
-            Continue
+            Finish
         </Button>
     </div>
 };
