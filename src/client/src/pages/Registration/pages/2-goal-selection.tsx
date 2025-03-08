@@ -27,7 +27,7 @@ const RegistrationGoalSelection: React.FC<RegistrationSubPageProps> = ({ nextPag
         >
             {
                 details?.name &&
-                <>`${details?.name.split(" ")[0]},`<br /></>
+                <>{details?.name.split(" ")[0]},<br /></>
             }
             <span className="text-xl">
                 what is your <span className="font-bold ">goal</span>?
@@ -36,8 +36,9 @@ const RegistrationGoalSelection: React.FC<RegistrationSubPageProps> = ({ nextPag
         
         <div className="flex flex-col gap-2">
         {
-            goals.map(({ goal, colour }) => (
+            goals.map(({ goal, colour }, index) => (
                 <Button
+                    key={index}
                     className="rounded-full shadow-lg shadow-slate-400 dark:shadow-slate-800 text-white hover:brightness-90 w-[70vw] md:w-[40vw]"
                     style={{ backgroundColor: colour }}
                     onClick={() => {handleGoalSelection(goal)}}
