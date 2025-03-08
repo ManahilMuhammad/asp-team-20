@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import RegistrationIntroduction from "./pages/1-introduction";
+import RegistrationGoalSelection from "./pages/2-goal-selection";
 import { RegistrationDetails } from "./types";
 import { useAuth } from "@/hooks/use-auth";
 
@@ -28,6 +29,8 @@ const RegistrationPage = () => {
         switch (index) {
             case 0:
                 return <RegistrationIntroduction nextPage={nextPage} />;
+            case 1:
+                return <RegistrationGoalSelection nextPage={nextPage} details={details} updateDetails={updateDetails} />
         }
     }
 
