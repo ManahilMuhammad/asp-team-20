@@ -2,6 +2,13 @@ import { Button } from "@/components/ui/button";
 import { RegistrationSubPageProps } from "../types";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 
+/* 
+
+    To Do:
+    - Use Carousel API to handle change and update details object
+
+*/
+
 const RegistrationAvatarSelection: React.FC<RegistrationSubPageProps> = ({ nextPage }) => {
     return <div className="text-center space-y-6">
         <p

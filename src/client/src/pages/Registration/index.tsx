@@ -13,6 +13,13 @@ const swipeVariants = {
     exit:   { x: -1000, opacity: 0 }
 };
 
+/* 
+
+    To Do:
+    - Handle the end of the setup page to finalize registration
+
+*/
+
 const RegistrationPage = () => {
     const { user } = useAuth();
 
