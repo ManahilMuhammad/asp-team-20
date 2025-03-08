@@ -1,12 +1,15 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAuth } from "@/hooks/use-auth";
 import { formatProfileImgUrl } from "@/lib/utils";
-import { Loader2 } from "lucide-react";
+import { ChevronRight, Circle, Loader2 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const ProfilePage = () => {
 
     const { user } = useAuth();
+    const navigate = useNavigate();
     const day = new Date();
 
     const getInitials = (name: string): string => {
@@ -44,7 +47,7 @@ const ProfilePage = () => {
                 </div>
             </div>
 
-            <div>
+            <div className="mb-[10vh]">
                 <p className="text-nutrifit-tertiary text-center text-lg">Today</p>
 
                 <div className="flex justify-center items-center gap-2 mt-4">
@@ -76,6 +79,50 @@ const ProfilePage = () => {
                 <p className="text-nutrifit-tertiary text-center text-sm mt-1">
                     {day.toLocaleDateString("en-US", { weekday: "short" })}
                 </p>
+            </div>
+
+            <div className="mx-auto w-[75vw] flex flex-col gap-4 justify-start h-screen">
+                <Button
+                    className="w-full rounded-full flex flex-row justify-between shadow-lg shadow-slate-400 bg-[#FD8E17] py-6"
+                    onClick={() => navigate('/recipes/saved')}
+                >
+                    <div className="flex items-center gap-2 text-lg">
+                        <Circle />
+                        <span>Saved Recipes</span>
+                    </div>
+                    <ChevronRight />
+                </Button>
+                <Button
+                    className="w-full rounded-full flex flex-row justify-between shadow-lg shadow-slate-400 bg-[#129B94] py-6"
+                    onClick={() => navigate('/recipes/suggsuggestionsested')}
+                >
+                    <div className="flex items-center gap-2 text-lg">
+                        <Circle />
+                        <span>Suggested Recipes</span>
+                    </div>
+                    <ChevronRight />
+                </Button>
+                <Button
+                    className="w-full rounded-full flex flex-row justify-between shadow-lg shadow-slate-400 bg-[#DF3434] py-6"
+                    onClick={() => navigate('/planner')}
+                    disabled
+                >
+                    <div className="flex items-center gap-2 text-lg">
+                        <Circle />
+                        <span>Meal Planner</span>
+                    </div>
+                    <ChevronRight />
+                </Button>
+                <Button
+                    className="w-full rounded-full flex flex-row justify-between shadow-lg shadow-slate-400 bg-[#7BAE20] py-6"
+                    onClick={() => navigate('/recipes/search')}
+                >
+                    <div className="flex items-center gap-2 text-lg">
+                        <Circle />
+                        <span>Recipe Search</span>
+                    </div>
+                    <ChevronRight />
+                </Button>
             </div>
         </div>
     )
