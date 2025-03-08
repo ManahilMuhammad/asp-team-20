@@ -8,6 +8,7 @@ import RegistrationIntroduction from "./pages/1-introduction";
 import RegistrationGoalSelection from "./pages/2-goal-selection";
 import RegistrationPersonalDetails from "./pages/3-details";
 import RegistrationAvatarSelection from "./pages/4-avatar-selection";
+import RegistrationConfirmation from "./pages/5-confirmation";
 
 const swipeVariants = {
     enter:  { x: 1000,  opacity: 0 },
@@ -64,6 +65,10 @@ const RegistrationPage = () => {
         setDetails((prev) => ({ ...prev, ...data }));
     }
 
+    setTimeout(() => {
+        setIndex(4);
+    }, 1000)
+
     const displayPage = (index: number) =>{
         switch (index) {
             case 0:
@@ -74,6 +79,8 @@ const RegistrationPage = () => {
                 return <RegistrationPersonalDetails nextPage={nextPage} details={details} updateDetails={updateDetails} />;
             case 3:
                 return <RegistrationAvatarSelection nextPage={nextPage} details={details} updateDetails={updateDetails} />;
+            case 4:
+                return <RegistrationConfirmation details={details as RegistrationDetails} />;
         }
     }
 
