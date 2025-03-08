@@ -52,7 +52,12 @@ const RegistrationGoalSelection: React.FC<RegistrationSubPageProps> = ({ nextPag
         
         <Button
             onClick={nextPage}
-            className="text-nutrifit-tertiary text-lg font-normal bg-transparent hover:bg-transparent hover:underline mt-6"
+            className={
+                `text-lg font-normal hover:underline `+
+                `${selected === null ? "text-muted-foreground" : "text-nutrifit-tertiary"} `+
+                `bg-transparent hover:bg-transparent mt-6`
+            }
+            disabled={selected === null}
         >
             Continue
         </Button>
