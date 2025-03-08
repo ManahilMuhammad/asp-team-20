@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useNavigate } from "react-router-dom";
 import { RegistrationDetails } from "./types";
 import { useAuth } from "@/hooks/use-auth";
 
@@ -25,7 +24,6 @@ const swipeVariants = {
 
 const RegistrationPage = () => {
     const { user } = useAuth();
-    const navigate = useNavigate();
 
     const [index, setIndex] = useState(0);
     const [details, setDetails] = useState<Partial<RegistrationDetails>>();
@@ -49,7 +47,7 @@ const RegistrationPage = () => {
             }
 
             if (user && details?.avatar) user.avatar = details?.avatar;
-            navigate('/profile');
+            setIndex(4);
 
         } catch (err: any) { // eslint-disable-line
             console.error('Unable to submit setup details:', err.message);
@@ -64,10 +62,6 @@ const RegistrationPage = () => {
     const updateDetails = (data: Partial<RegistrationDetails>) => {
         setDetails((prev) => ({ ...prev, ...data }));
     }
-
-    setTimeout(() => {
-        setIndex(4);
-    }, 1000)
 
     const displayPage = (index: number) =>{
         switch (index) {
