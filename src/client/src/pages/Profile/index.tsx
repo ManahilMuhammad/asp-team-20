@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAuth } from "@/hooks/use-auth";
 import { formatProfileImgUrl } from "@/lib/utils";
-import { ChevronRight, Circle, Loader2 } from "lucide-react";
+import { ChevronRight, Circle, Loader2, Settings } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const ProfilePage = () => {
@@ -122,6 +122,18 @@ const ProfilePage = () => {
                         <span>Recipe Search</span>
                     </div>
                     <ChevronRight />
+                </Button>
+            </div>
+
+            <div className="fixed bottom-[1em] left-1/2 -translate-x-1/2 z-[2000]">
+                <Button
+                    className="rounded-full w-[4em] h-[4em] p-[0.4em] bg-[#FFAF01] hover:bg-[#c98a02] dark:hover:bg-[#ffd06b] shadow-xl border-4 border-background"
+                    onClick={() => {
+                        navigate('/profile');
+                    }}
+                    asChild
+                >
+                    <Settings strokeWidth={1} size={48} color="#424242" />
                 </Button>
             </div>
         </div>
