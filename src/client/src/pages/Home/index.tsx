@@ -11,10 +11,10 @@ const HomePage = () => {
 
     return <>
         <div className="flex flex-col items-center gap-8 mt-16">
-            <h3 className="text-5xl text-nutrifit-tertiary">Welcome to</h3>
+            <h3 className="text-3xl md:text-5xl text-nutrifit-tertiary">Welcome to</h3>
             <div className="flex flex-row items-center gap-8">
                 <img src="/nutrifit-logo.svg" className="rounded-[25%]" />
-                <h1 className="text-8xl text-primary">Nutrifit</h1>
+                <h1 className="text-6xl md:text-8xl text-primary">Nutrifit</h1>
             </div>
 
             <Card>
