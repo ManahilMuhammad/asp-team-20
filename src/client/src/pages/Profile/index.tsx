@@ -1,23 +1,12 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAuth } from "@/hooks/use-auth";
+import { getInitials } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
 
 const ProfilePage = () => {
 
     const { user } = useAuth();
-
-    const getInitials = (name: string): string => {
-        if (!name) return "NF";
-      
-        const words = name.trim().split(/\s+/);
-        const initials = words
-          .slice(0, 2)
-          .map(word => word[0]?.toUpperCase())
-          .join("");
-      
-        return initials;
-      };
 
     if (!user) return <Card>
         <CardHeader>
