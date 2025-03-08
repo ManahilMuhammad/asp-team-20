@@ -1,13 +1,29 @@
 import { Button } from "@/components/ui/button";
-import { RegistrationSubPageProps } from "../types";
+import { RegistrationDetails, RegistrationSubPageProps } from "../types";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { useState } from "react";
 
 const RegistrationPersonalDetails: React.FC<RegistrationSubPageProps> = ({ nextPage, details, updateDetails }) => {
+    const [errors, setErrors] = useState<Partial<RegistrationDetails>>({});
 
     const handleChange = (key: string, value: number) => {
-
         if(!updateDetails) return;
+
+        let errorMessage = "";
+        switch (key) {
+            case "age":
+                if (value < 13) errorMessage = "The age requirement is 13";
+                break;
+            case "height":
+                if (value < 20 || isNaN(value)) errorMessage = "Height is invalid";
+                break;
+            case "weight":
+                if (value < 20 || isNaN(value)) errorMessage = "Weight is invalid";
+                break;
+        }
+
+        setErrors((prev) => ({ ...prev, [key]: errorMessage }));
         updateDetails({ [key]: value });
     }
 
@@ -29,11 +45,20 @@ const RegistrationPersonalDetails: React.FC<RegistrationSubPageProps> = ({ nextP
                     id="age"
                     type="number"
                     placeholder="25"
+                    min={13}
                     required
                     className="border-[1.5px] border-solid border-nutrifit-tertiary rounded-3xl"
-                    value={details?.age}
-                    onChange={(e) => handleChange("age", Math.max(13, Number(e.target.value)))}
+                    value={details?.age || ""}
+                    onChange={(e) => handleChange("age", Number(e.target.value))}
                 />
+                <p
+                    className="text-red-500 text-sm"
+                    style={{
+                        opacity: errors.age ? 1 : 0,
+                        transform: errors.age ? "translateY(0)" : "translateY(-10px)",
+                        transition: "opacity 0.3s ease, transform 0.3s ease",
+                    }}
+                >{errors.age}</p>
             </div>
             
             <div className="grid gap-2">
@@ -45,9 +70,17 @@ const RegistrationPersonalDetails: React.FC<RegistrationSubPageProps> = ({ nextP
                     placeholder="165"
                     required
                     className="border-[1.5px] border-solid border-nutrifit-tertiary rounded-3xl"
-                    value={details?.height}
-                    onChange={(e) => handleChange("height", Math.max(40, Number(e.target.value)))}
+                    value={details?.height || ""}
+                    onChange={(e) => handleChange("height", Number(e.target.value))}
                 />
+                <p
+                    className="text-red-500 text-sm"
+                    style={{
+                        opacity: errors.height ? 1 : 0,
+                        transform: errors.height ? "translateY(0)" : "translateY(-10px)",
+                        transition: "opacity 0.3s ease, transform 0.3s ease",
+                    }}
+                >{errors.height}</p>
             </div>
             
             <div className="grid gap-2">
@@ -58,9 +91,17 @@ const RegistrationPersonalDetails: React.FC<RegistrationSubPageProps> = ({ nextP
                     placeholder="75"
                     required
                     className="border-[1.5px] border-solid border-nutrifit-tertiary rounded-3xl"
-                    value={details?.weight}
-                    onChange={(e) => handleChange("weight", Math.max(20, Number(e.target.value)))}
+                    value={details?.weight || ""}
+                    onChange={(e) => handleChange("weight", Number(e.target.value))}
                 />
+                <p
+                    className="text-red-500 text-sm"
+                    style={{
+                        opacity: errors.weight ? 1 : 0,
+                        transform: errors.weight ? "translateY(0)" : "translateY(-10px)",
+                        transition: "opacity 0.3s ease, transform 0.3s ease",
+                    }}
+                >{errors.weight}</p>
             </div>
         </div>
         
