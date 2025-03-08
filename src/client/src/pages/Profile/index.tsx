@@ -94,7 +94,7 @@ const ProfilePage = () => {
                 </Button>
                 <Button
                     className="w-full rounded-full flex flex-row justify-between shadow-lg shadow-slate-400 bg-[#129B94] py-6"
-                    onClick={() => navigate('/recipes/suggsuggestionsested')}
+                    onClick={() => navigate('/recipes/suggestions')}
                 >
                     <div className="flex items-center gap-2 text-lg">
                         <Circle />
