@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Button } from "@/components/ui/button";
+import RegistrationIntroduction from "./pages/1-introduction";
 
 const swipeVariants = {
     enter:  { x: 1000,  opacity: 0 },
@@ -16,10 +16,10 @@ const RegistrationPage = () => {
     };
 
     const displayPage = (index: number) =>{
-        return <div className="flex flex-col gap-2">
-            <p>Showing page: {index}</p>
-            <Button onClick={nextPage}>Next Page</Button>
-        </div>
+        switch (index) {
+            case 0:
+                return <RegistrationIntroduction nextPage={nextPage} />;
+        }
     }
 
     return (
