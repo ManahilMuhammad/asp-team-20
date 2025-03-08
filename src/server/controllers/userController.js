@@ -45,6 +45,10 @@ module.exports.finalizeRegistration = async (req, res) => {
     // Update values obtained from the setup steps
     await User.update({
       age, avatar, goal
+    }, {
+      where: {
+        id: req.user.id
+      }
     });
 
     // Save weight to fitness metric ?
@@ -55,6 +59,7 @@ module.exports.finalizeRegistration = async (req, res) => {
 
     return res.status(200).json({});
   } catch (error) {
+    console.error('Unable to finalize registration:', error);
     res.status(500).json({ error: error.message });
   }
 };
