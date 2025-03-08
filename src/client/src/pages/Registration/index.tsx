@@ -5,6 +5,7 @@ import RegistrationGoalSelection from "./pages/2-goal-selection";
 import { RegistrationDetails } from "./types";
 import { useAuth } from "@/hooks/use-auth";
 import RegistrationPersonalDetails from "./pages/3-details";
+import RegistrationAvatarSelection from "./pages/4-avatar-selection";
 
 const swipeVariants = {
     enter:  { x: 1000,  opacity: 0 },
@@ -34,6 +35,8 @@ const RegistrationPage = () => {
                 return <RegistrationGoalSelection nextPage={nextPage} details={details} updateDetails={updateDetails} />;
             case 2:
                 return <RegistrationPersonalDetails nextPage={nextPage} details={details} updateDetails={updateDetails} />;
+            case 3:
+                return <RegistrationAvatarSelection nextPage={nextPage} details={details} updateDetails={updateDetails} />;
         }
     }
 
