@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import RegistrationIntroduction from "./pages/1-introduction";
-import RegistrationGoalSelection from "./pages/2-goal-selection";
+import { useNavigate } from "react-router-dom";
 import { RegistrationDetails } from "./types";
 import { useAuth } from "@/hooks/use-auth";
+
+import RegistrationIntroduction from "./pages/1-introduction";
+import RegistrationGoalSelection from "./pages/2-goal-selection";
 import RegistrationPersonalDetails from "./pages/3-details";
 import RegistrationAvatarSelection from "./pages/4-avatar-selection";
 
@@ -16,18 +18,46 @@ const swipeVariants = {
 /* 
 
     To Do:
-    - Handle the end of the setup page to finalize registration
+    - Display potential errors
 
 */
 
 const RegistrationPage = () => {
     const { user } = useAuth();
+    const navigate = useNavigate();
 
     const [index, setIndex] = useState(0);
     const [details, setDetails] = useState<Partial<RegistrationDetails>>();
 
+    const submitRegistrationDetails = async (): Promise<void> => {
+
+        try {
+            const token = localStorage.getItem("nutrifit-token");
+            const response = await fetch('/api/users/setup', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify(details)
+            });
+
+            if (!response.ok) {
+                const data = await response.json();
+                return console.error('Setup request failed', data.error);
+            }
+
+            if (user && details?.avatar) user.avatar = details?.avatar;
+            navigate('/profile');
+
+        } catch (err: any) { // eslint-disable-line
+            console.error('Unable to submit setup details:', err.message);
+        }
+    }
+
     const nextPage = (): void => {
-        setIndex((prev) => (Math.min(prev + 1, 3)));
+        if (index < 3) return setIndex((prev) => (Math.min(prev + 1, 3)));
+        submitRegistrationDetails();
     };
 
     const updateDetails = (data: Partial<RegistrationDetails>) => {
