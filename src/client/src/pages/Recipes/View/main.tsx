@@ -1,9 +1,11 @@
 // import useFetchApi from "@/hooks/use-fetch-api";
 import { Separator } from "@/components/ui/separator";
-import { Loader2, TriangleAlert } from "lucide-react";
+import { Loader2, Save, TriangleAlert } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { CompleteRecipe } from "../types";
+import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 const RecipeView = () => {
     const { id } = useParams<{ id: string }>();
@@ -41,6 +43,46 @@ const RecipeView = () => {
         fetchRecipe();
     }, [id, data]);
 
+    const saveRecipe = async () => {
+
+        try {
+            const token = localStorage.getItem("nutrifit-token");
+            const response = await fetch('/api/recipes/handlesaved',
+                {
+                    method: 'POST',
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: JSON.stringify({ recipeId: id, action: 'save' })
+                }
+            );
+
+            const data: { message: string; error?: string; } = await response.json()
+
+            if (!response.ok) {
+                console.error('Unable to fullfill save action', data);
+                toast.error(data.message, {
+                    description: data.error,
+                    dismissible: true,
+                    closeButton: true,
+                })
+                return;
+            }
+
+            toast.info('Recipe was saved to your list', {
+                dismissible: true,
+                duration: 5000,
+            });
+        } catch (err: any) { // eslint-disable-line
+            toast.error('An error occured when saving the recipe', {
+                description: err.message,
+                dismissible: true,
+                duration: 10000,
+            })
+        }
+    }
+
     // For some reason it breaks, as the options param is always regenerated
     // const { data, loading, error } = useFetchApi<CompleteRecipe>(`/api/recipes/${id}`, {method: 'GET'}, false);
 
@@ -64,6 +106,17 @@ const RecipeView = () => {
 
         {
             data && !loading && <div className="py-12 px-8 flex flex-col gap-6">
+
+                <Button
+                    className="fixed top-6 left-6 overflow-hidden p-0 bg-primary text-white h-10 w-10 hover:w-40 group rounded-full ease-in-out"
+                    onClick={saveRecipe}
+                >
+                    <Save className="absolute left-3 z-10 bg-primary" />
+                    <span className="absolute left-0 flex items-center justify-center opacity-0 transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:left-12">
+                        Save Recipe
+                    </span>
+                </Button>
+
                 <img
                     src={ data.image || "/nutrifit-logo.svg"}
                     alt={`An image of ${data.title}`}
