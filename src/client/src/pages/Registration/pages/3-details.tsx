@@ -6,6 +6,7 @@ import { useState } from "react";
 
 const RegistrationPersonalDetails: React.FC<RegistrationSubPageProps> = ({ nextPage, details, updateDetails }) => {
     const [errors, setErrors] = useState<Partial<RegistrationDetails>>({});
+    const [showErrors, setShowErrors] = useState<boolean>(false);
 
     const handleChange = (key: string, value: number) => {
         if(!updateDetails) return;
@@ -27,6 +28,17 @@ const RegistrationPersonalDetails: React.FC<RegistrationSubPageProps> = ({ nextP
         updateDetails({ [key]: value });
     }
 
+    const handleSubmitClick = () => {
+        // Check if any error inputs contain truthy values (i.e. error messages & not empty strings)
+        const hasErrors = Object.values(errors).some(Boolean);
+        if (!hasErrors) {
+            nextPage();
+        } else {
+            setShowErrors(true);
+        }
+    };
+    
+
     return <div className="text-center">
         <p
             className="text-nutrifit-tertiary mb-8"
@@ -39,7 +51,7 @@ const RegistrationPersonalDetails: React.FC<RegistrationSubPageProps> = ({ nextP
 
         <div className="text-left mb-4 flex flex-col gap-4">
             
-            <div className="grid gap-2">
+            <div className="grid gap-1">
                 <Label htmlFor="age" className="text-nutrifit-tertiary font-bold">Age</Label>
                 <Input
                     id="age"
@@ -54,14 +66,14 @@ const RegistrationPersonalDetails: React.FC<RegistrationSubPageProps> = ({ nextP
                 <p
                     className="text-red-500 text-sm"
                     style={{
-                        opacity: errors.age ? 1 : 0,
-                        transform: errors.age ? "translateY(0)" : "translateY(-10px)",
+                        opacity: showErrors && errors.age ? 1 : 0,
+                        transform: showErrors && errors.age ? "translateY(0)" : "translateY(-10px)",
                         transition: "opacity 0.3s ease, transform 0.3s ease",
                     }}
                 >{errors.age}</p>
             </div>
             
-            <div className="grid gap-2">
+            <div className="grid gap-1">
                 <Label htmlFor="height" className="text-nutrifit-tertiary font-bold">Height <span className="font-medium">(in centimeters)</span></Label>
                 <Input
                     id="height"
@@ -76,14 +88,14 @@ const RegistrationPersonalDetails: React.FC<RegistrationSubPageProps> = ({ nextP
                 <p
                     className="text-red-500 text-sm"
                     style={{
-                        opacity: errors.height ? 1 : 0,
-                        transform: errors.height ? "translateY(0)" : "translateY(-10px)",
+                        opacity: showErrors && errors.height ? 1 : 0,
+                        transform: showErrors && errors.height ? "translateY(0)" : "translateY(-10px)",
                         transition: "opacity 0.3s ease, transform 0.3s ease",
                     }}
                 >{errors.height}</p>
             </div>
             
-            <div className="grid gap-2">
+            <div className="grid gap-1">
                 <Label htmlFor="weight" className="text-nutrifit-tertiary font-bold">Weight <span className="font-medium">(in kilograms)</span></Label>
                 <Input
                     id="weight"
@@ -97,8 +109,8 @@ const RegistrationPersonalDetails: React.FC<RegistrationSubPageProps> = ({ nextP
                 <p
                     className="text-red-500 text-sm"
                     style={{
-                        opacity: errors.weight ? 1 : 0,
-                        transform: errors.weight ? "translateY(0)" : "translateY(-10px)",
+                        opacity: showErrors && errors.weight ? 1 : 0,
+                        transform: showErrors && errors.weight ? "translateY(0)" : "translateY(-10px)",
                         transition: "opacity 0.3s ease, transform 0.3s ease",
                     }}
                 >{errors.weight}</p>
@@ -106,7 +118,7 @@ const RegistrationPersonalDetails: React.FC<RegistrationSubPageProps> = ({ nextP
         </div>
         
         <Button
-            onClick={nextPage}
+            onClick={handleSubmitClick}
             className="text-nutrifit-tertiary text-lg font-normal bg-transparent hover:bg-transparent hover:underline"
         >
             Continue
