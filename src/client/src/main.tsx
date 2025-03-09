@@ -16,7 +16,7 @@ createRoot(document.getElementById('root')!).render(
         <TooltipProvider>
           <App />
           <ModeToggle />
-          <Toaster />
+          <Toaster richColors />
         </TooltipProvider>
       </ThemeProvider>
     </AuthProvider>

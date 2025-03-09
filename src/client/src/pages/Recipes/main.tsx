@@ -11,7 +11,7 @@ const RecipePage = () => {
         <Outlet />
         <div className="fixed bottom-[1em] left-1/2 -translate-x-1/2 z-[2000]">
             <Button
-                className="rounded-full w-[3em] h-[3em] p-[0.4em] bg-[#FFAF01] hover:bg-[#c98a02] dark:hover:bg-[#ffd06b] shadow-xl border-4 border-background"
+                className="rounded-full w-[4em] h-[4em] p-[0.4em] bg-[#FFAF01] hover:bg-[#c98a02] dark:hover:bg-[#ffd06b] shadow-xl border-4 border-background"
                 onClick={() => {
                     navigate(
                         isAuthenticated() ? 
