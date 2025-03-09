@@ -5,6 +5,15 @@ export const cn = (...inputs: ClassValue[]): string => {
   return twMerge(clsx(inputs))
 }
 
+export const formatProfileImgUrl = (avatar: string): string => {
+  // avatar is a url reference to an online image
+  if (avatar.startsWith('http')) return avatar;
+  // default avatar being nutifit logo
+  if (avatar === 'default') return "/nutrifit-logo.svg";
+  // any other default avatar
+  return `/base-avatars/${avatar}`;
+} 
+
 export const getInitials = (name: string): string => {
   if (!name) return "NF";
 
