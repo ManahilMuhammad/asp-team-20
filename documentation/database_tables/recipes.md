@@ -82,3 +82,7 @@ The `Recipes` model is the base table for storing/searching of all recipes used 
   ]
 }
 ```
+
+## Placeholder data
+To test inputs, you can import the `test-recipes.csv` into postgresql using [pgadmin4](https://www.pgadmin.org/download/).
+This csv file will provide you with 9 recipes that are to be only used in development, these are inaccurate and not for public availability.
