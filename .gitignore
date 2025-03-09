@@ -41,3 +41,5 @@ jspm_packages/
 
 # Environment Variables
 src/server/.env
+# sensitive info
+src/server/config/config.json

@@ -5,12 +5,6 @@ const path = require('path');
 const db = require("./models/index");
 const { NODE_ENV, PORT } = require('./config/config');
 
-// Import the routes for recipes
-const recipesRoutes = require("./routes/recipeRoutes");
-// Import routes for fitness metrics.
-const fitnessMetricRoutes = require("./routes/fitnessMetricRoutes");
-const authRoutes = require('./routes/auth');
-
 const app = express();
 
 if (NODE_ENV === 'production') {
@@ -28,13 +22,18 @@ app.use(cors());
 app.use(express.json());
 
 // User routes
-app.use("/api/users", require("./routes/user.routes"));
+const userRoutes = require("./routes/userRoutes");
+app.use("/api/users", userRoutes);
 
 // Recipes routes
+const recipesRoutes = require("./routes/recipeRoutes");
 app.use("/api/recipes", recipesRoutes);
+
 // Fitness Metric API routes.
+const fitnessMetricRoutes = require("./routes/fitnessMetricRoutes");
 app.use("/api/fitness-metrics", fitnessMetricRoutes);
 
+const authRoutes = require('./routes/auth');
 app.use('/api/auth', authRoutes);
 
 // Sync Database

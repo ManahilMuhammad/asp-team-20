@@ -14,6 +14,7 @@ import SearchRecipes from "./pages/Recipes/SearchRecipes/main";
 import SuggestedRecipes from "./pages/Recipes/Suggested/main";
 import RecipeView from "./pages/Recipes/View/main";
 import InvalidRecipeView from "./pages/Recipes/View/main-invalid";
+import RegistrationPage from "./pages/Registration";
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
         <Route path="/profile" element={<ProtectedRoute children={<ProfilePage />} />} />
         <Route path="/auth" element={<AuthPage />} />
 
+        <Route path="/registration" element={<RegistrationPage />} />
 
         <Route path="/recipes" element={<RecipePage />}>
           <Route path="create" element={<ProtectedRoute children={<CreateRecipe />} />} />
