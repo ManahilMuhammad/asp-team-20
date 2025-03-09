@@ -141,6 +141,41 @@ const getSavedRecipes = async (req, res) => {
   }
 };
 
+const handleSavedRecipes = async (req, res) => {
+  const userId = req.user.id;
+  const { recipeId, action } = req.body;
+
+  try {
+    switch (action) {
+      case 'save': {
+        const saveResult = await SavedRecipes.create({ userId, recipeId });
+        if (saveResult) {
+          return res.status(200).json({ message: 'Recipe Saved' });
+        }
+        return res.status(400).json({ message: 'Recipe could not be saved' });
+      }
+
+      case 'remove': {
+        const deleteResult = await SavedRecipes.destroy({
+          where: { userId, recipeId }
+        });
+        console.log(deleteResult);
+        if (deleteResult) {
+          return res.status(200).json({ message: 'Recipe Removed' });
+        }
+        return res.status(400).json({ message: 'Recipe could not removed, it probably doesn\'t exist' });
+      }
+
+      default:
+        return res.status(400).json({ message: 'Invalid action' });
+    }
+  } catch (error) {
+    console.error('Error in handleSavedRecipes:', error);
+    return res.status(500).json({ message: 'Internal Server Error' });
+  }
+};
+
+
 /**
  * Return an array of recipes based on a text search
  */
@@ -247,4 +282,5 @@ module.exports = {
   updateRecipe,
   deleteRecipe,
   getSavedRecipes,
+  handleSavedRecipes,
 };
