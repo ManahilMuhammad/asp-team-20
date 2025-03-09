@@ -54,7 +54,7 @@ const ProfilePageIndex: React.FC<{ user: User, setPage: (page: ProfilePageNames)
                         return (
                             <div
                                 key={offset}
-                                className="text-white flex items-center justify-center rounded-full"
+                                className="text-white flex items-center justify-center rounded-full inset-shadow-sm inset-shadow-indigo-500"
                                 style={{
                                     backgroundColor: bgColor,
                                     filter: `brightness(${brightness})`,
@@ -73,7 +73,7 @@ const ProfilePageIndex: React.FC<{ user: User, setPage: (page: ProfilePageNames)
                 </p>
             </div>
 
-            <div className="mx-auto w-[75vw] flex flex-col gap-4 justify-start h-screen">
+            <div className="mx-auto w-[75vw] md:w-[55vw] lg:w-[35vw] flex flex-col gap-4 justify-start h-screen">
                 <Button
                     className="w-full rounded-full flex flex-row justify-between shadow-lg shadow-slate-400 bg-[#FD8E17] py-6"
                     onClick={() => navigate('/recipes/saved')}
