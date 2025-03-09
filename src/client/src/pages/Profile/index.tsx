@@ -4,7 +4,7 @@ import { Loader2 } from "lucide-react";
 import { useState } from "react";
 import { ProfilePageNames } from "./types";
 import ProfilePageIndex from "./sub-pages";
-import { Button } from "@/components/ui/button";
+import ProfilePageSettings from "./sub-pages/settings";
 
 const ProfilePage = () => {
 
@@ -23,12 +23,7 @@ const ProfilePage = () => {
         case "index":
             return <ProfilePageIndex user={user} setPage={setPage} />;
         case "settings":
-            return <div className="text-center mt-[40vh]">
-                Settings
-                <Button onClick={() => {setPage('index')}}>
-                    Back
-                </Button>
-            </div>;
+            return <ProfilePageSettings user={user} setPage={setPage} />;
     }
 }
 
