@@ -1,0 +1,1 @@
+export type ProfilePageNames = "index" | "settings";
