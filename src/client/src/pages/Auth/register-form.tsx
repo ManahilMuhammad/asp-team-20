@@ -44,7 +44,7 @@ const RegisterForm = ({ changeForm, className, ...props }: FormProps) => {
             });
 
             if (response.ok) {
-                login(email, password);
+                login(email, password, true);
                 console.log("Registration successful");
             } else {
                 // Handle registration error

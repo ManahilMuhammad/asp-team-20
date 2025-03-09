@@ -7,6 +7,7 @@ import { ThemeProvider } from './components/theme/theme-provider.tsx'
 import ModeToggle from './components/theme-toggle.tsx'
 import { AuthProvider } from './components/auth/auth-provider.tsx'
 import { TooltipProvider } from './components/ui/tooltip.tsx'
+import { Toaster } from 'sonner'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -15,6 +16,7 @@ createRoot(document.getElementById('root')!).render(
         <TooltipProvider>
           <App />
           <ModeToggle />
+          <Toaster richColors />
         </TooltipProvider>
       </ThemeProvider>
     </AuthProvider>
