@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { RegistrationDetails } from "./types";
+import { toast } from "sonner"
 import { useAuth } from "@/hooks/use-auth";
 
 import RegistrationIntroduction from "./pages/1-introduction";
@@ -8,6 +9,7 @@ import RegistrationGoalSelection from "./pages/2-goal-selection";
 import RegistrationPersonalDetails from "./pages/3-details";
 import RegistrationAvatarSelection from "./pages/4-avatar-selection";
 import RegistrationConfirmation from "./pages/5-confirmation";
+import { useNavigate } from "react-router-dom";
 
 const swipeVariants = {
     enter:  { x: 1000,  opacity: 0 },
@@ -24,6 +26,7 @@ const swipeVariants = {
 
 const RegistrationPage = () => {
     const { user } = useAuth();
+    const navigate = useNavigate();
 
     const [index, setIndex] = useState(0);
     const [details, setDetails] = useState<Partial<RegistrationDetails>>();
@@ -43,6 +46,17 @@ const RegistrationPage = () => {
 
             if (!response.ok) {
                 const data = await response.json();
+                toast.error(data.error, {
+                    duration: 5000,
+                    dismissible: true,
+                    description: 'You will be redirected to your profile page',
+                    onAutoClose: () => {
+                        navigate('/profile')
+                    },
+                    onDismiss: () => {
+                        navigate('/profile')
+                    }
+                });
                 return console.error('Setup request failed', data.error);
             }
 
@@ -51,6 +65,11 @@ const RegistrationPage = () => {
 
         } catch (err: any) { // eslint-disable-line
             console.error('Unable to submit setup details:', err.message);
+            toast.error('An error occured', {
+                duration: 5000,
+                dismissible: true,
+                description: err.message || '',
+            });
         }
     }
 
