@@ -141,6 +141,52 @@ const getSavedRecipes = async (req, res) => {
   }
 };
 
+const handleSavedRecipes = async (req, res) => {
+  const userId = req.user.id;
+  const { recipeId, action } = req.body;
+
+  try {
+    switch (action) {
+      case 'save': {
+        try {
+          await SavedRecipes.create({ userId, recipeId });
+          return res.status(200).json({ message: 'Recipe Saved' });
+        } catch (error) {
+          if (error.name === 'SequelizeUniqueConstraintError') {
+            return res.status(400).json({ message: 'Recipe is already saved !' });
+          }
+          console.error('Error saving recipe:', error.message);
+          return res.status(500).json({ message: 'An error occurred while saving the recipe' });
+        }
+      }
+
+      case 'remove': {
+        try {
+          const deleteResult = await SavedRecipes.destroy({
+            where: { userId, recipeId }
+          });
+
+          if (deleteResult === 0) {
+            return res.status(404).json({ message: 'Recipe not found or already removed' });
+          }
+
+          return res.status(200).json({ message: 'Recipe Removed' });
+        } catch (error) {
+          // console.error('Error removing recipe:', error.message, error.name);
+          return res.status(500).json({ message: 'An error occurred while removing the recipe' });
+        }
+      }
+
+      default:
+        return res.status(400).json({ message: 'Invalid action' });
+    }
+  } catch (error) {
+    console.error('Error in handleSavedRecipes:', error.message);
+    return res.status(500).json({ message: 'Internal Server Error' });
+  }
+};
+
+
 /**
  * Return an array of recipes based on a text search
  */
@@ -247,4 +293,5 @@ module.exports = {
   updateRecipe,
   deleteRecipe,
   getSavedRecipes,
+  handleSavedRecipes,
 };

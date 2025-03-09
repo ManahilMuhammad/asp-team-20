@@ -91,7 +91,7 @@ const SavedRecipes = () => {
                     <ScrollArea className="max-h-[84vh] overflow-auto scrollbar-thin">
                         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 mt-4 max-w-[90vw] pb-[2em]">{
                             filteredRecipes.map(({ id, title, image }) => (
-                                <RecipeCard key={id} id={id} title={title} image={image} tags={[]} />
+                                <RecipeCard key={id} id={id} title={title} image={image} tags={[]} isSaved />
                             )) 
                         }</div>
                     </ScrollArea> :
