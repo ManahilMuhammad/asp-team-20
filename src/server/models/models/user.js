@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         defaultValue: "",
         validate: {
-          len: [3, 255], // Minimum length of 3 characters
+          len: [0, 255], // Minimum length of 3 characters
         },
       },
       avatar: {
