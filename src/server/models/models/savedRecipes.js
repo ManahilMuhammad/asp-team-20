@@ -35,6 +35,13 @@ module.exports = (sequelize, DataTypes) => {
       modelName: "SavedRecipes",
       tableName: "SavedRecipes",
       timestamps: true,
+      indexes: [
+        {
+          // setting the two columns as unique keys avoids duplicate saves for the DB
+          unique: true,
+          fields: ['userId', 'recipeId'],
+        }
+      ]
     }
   );
 

@@ -10,6 +10,7 @@ const {
   deleteRecipe,
   searchRecipeByTitle,
   getSavedRecipes,
+  handleSavedRecipes,
 } = require("../controllers/recipeController");
 
 // Import an authentication middleware
@@ -35,5 +36,8 @@ router.get("/search/:title", searchRecipeByTitle);
 
 // Route to retrieve all saved recipes by the user
 router.get("/saved", protect, getSavedRecipes);
+
+// Route to save a new recipe as favorite
+router.post("/handlesaved", protect, handleSavedRecipes);
 
 module.exports = router;

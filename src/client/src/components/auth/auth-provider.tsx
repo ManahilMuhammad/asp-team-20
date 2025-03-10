@@ -8,7 +8,7 @@ interface AuthProviderProps {
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | false | null>(null);
 
-  const login = async (email: string, password: string) => {
+  const login = async (email: string, password: string, registration: boolean = false) => {
     try {
       const response = await fetch(`/api/users/login`, {
         method: "POST",
@@ -26,9 +26,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       localStorage.setItem("nutrifit-token", token);
 
       setUser(user);
-      // console.log('Login successful, user:', decodedUser.id,);
-      // console.log('token:', token);
-      window.location.href = "/profile";
+
+      // navigate to next appropriate page if it's a registration login or not
+      if (registration) window.location.href = "/registration";
+      else window.location.href = "/profile";
     } catch (error) {
       setUser(false);
       console.error("Login failed:", error);
