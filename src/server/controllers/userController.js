@@ -23,9 +23,10 @@ module.exports.registerUser = async (req, res) => {
     if (typeof passwordStrength === 'string') return res.status(400).json({ error: passwordStrength });
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await User.create({ name, email, password: hashedPassword, age, goal, avatar });
+    const user = await User.create({ name, email, password: hashedPassword, age, goal, avatar, motto: "Default motto"  });
 
-    res.status(201).json({ id: user.id, name: user.name, email: user.email, avatar: user.avatar, token: generateToken(user.id) });
+    res.status(201).json({ id: user.id, name: user.name, email: user.email, avatar: user.avatar,age: user.age, motto: user.motto,
+        token: generateToken(user.id) });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -42,7 +43,8 @@ module.exports.loginUser = async (req, res) => {
     if (!isMatch) return res.status(400).json({ message: "Invalid email or password" });
 
     // Send token and user data to client to ensure data sync across devices
-    res.json({ token: generateToken(user.id), user: { id: user.id, name: user.name, email: user.email, avatar: user.avatar } });
+    res.json({ token: generateToken(user.id), user: { id: user.id, name: user.name, email: user.email,
+            avatar: user.avatar, age: user.age, motto: user.motto } });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
