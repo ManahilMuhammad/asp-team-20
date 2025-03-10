@@ -25,7 +25,7 @@ module.exports.registerUser = async (req, res) => {
 
     const user = await User.create({ name, email, password: hashedPassword, age, goal, avatar, motto: "Default motto"  });
 
-    const user = await User.create({ name, email, password: hashedPassword });
+   
 
 
     res.status(201).json({ id: user.id, name: user.name, email: user.email, avatar: user.avatar,age: user.age, motto: user.motto,
