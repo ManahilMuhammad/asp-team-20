@@ -1,6 +1,5 @@
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAuth } from "@/hooks/use-auth";
-import { getInitials } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
 import { useState } from "react";
 import { ProfilePageNames } from "./types";
