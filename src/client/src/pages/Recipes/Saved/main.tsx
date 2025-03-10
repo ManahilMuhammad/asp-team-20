@@ -38,10 +38,16 @@ const SavedRecipes = () => {
     
                 if (data) setSavedRecipes(data);
 
-                setTags([
-                    baseTag,
-                    ...data.flatMap(recipe => recipe.tags)
-                ]);
+                // generate complete list of all tags
+                const allTags = [baseTag, ...data.flatMap(recipe => recipe.tags)];
+
+                // Remove all duplicates
+                const tags = allTags.filter(
+                    (tag, index, self) => index === self.findIndex(t => t.label === tag.label)
+                );
+
+                setTags(tags)
+                
     
                 setLoading(false);
             } catch (err: any) { // eslint-disable-line
