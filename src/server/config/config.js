@@ -50,7 +50,31 @@ else {
 }
 
 module.exports = {
-    NODE_ENV,
-    PORT,
-    JWT_SECRET,
-}
+  NODE_ENV,
+  PORT,
+  JWT_SECRET,
+  development: {
+    username: env.DB_USERNAME,      // Expected to be provided via environment variable
+    password: env.DB_PASSWORD,      // Expected to be provided via environment variable
+    database: env.DB_DATABASE,      // Expected to be provided via environment variable
+    host: env.DB_HOST || "localhost",
+    port: env.DB_PORT || 5432,
+    dialect: "postgres",            // Explicitly set to postgres, Sequelize requires this
+  },
+  test: {
+    username: env.DB_USERNAME,      // Use a separate test DB environment variable if available
+    password: env.DB_PASSWORD,
+    database: env.DB_DATABASE,      // Or env.DB_TEST_DATABASE if defined
+    host: env.DB_HOST || "localhost",
+    port: env.DB_PORT || 5432,
+    dialect: "postgres",
+  },
+  production: {
+    username: env.DB_USERNAME,      // Expected to be provided via environment variable
+    password: env.DB_PASSWORD,
+    database: env.DB_DATABASE,
+    host: env.DB_HOST || "localhost",
+    port: env.DB_PORT || 5432,
+    dialect: "postgres",
+  },
+};
